@@ -21,7 +21,7 @@
 - [x] `SYNC.md`, `LICENSE`, `SUITE-OVERVIEW.md`
 - [x] LSS validation in CI (01-core)
 - [x] Smoke tests for all 3 tasks
-- [ ] PyPI publish (`pip install loopbench` — pending trusted publisher or token on PyPI)
+- [x] PyPI publish — https://pypi.org/project/loopbench/
 
 ## Links
 
