@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://loop-engineering.org/schema/loopbench-results-0.1.json",
+  "title": "LoopBench Submission Results 0.1",
+  "type": "object",
+  "required": [
+    "submission_id",
+    "submitter",
+    "loopbench_version",
+    "lss_version",
+    "les_version",
+    "spec_path",
+    "spec_hash",
+    "results",
+    "composite"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "submission_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "submitter": {
+      "type": "string",
+      "minLength": 1
+    },
+    "loopbench_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "lss_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "les_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "spec_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "backend": {
+      "type": "string",
+      "enum": ["sim", "live", "replay"]
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/TaskResult" }
+    },
+    "composite": { "$ref": "#/$defs/CompositeScore" }
+  },
+  "$defs": {
+    "RunRecord": {
+      "type": "object",
+      "required": [
+        "task_instance_id",
+        "seed",
+        "success",
+        "g_final",
+        "g_target",
+        "iterations",
+        "cost_usd",
+        "elapsed_s",
+        "termination_reason"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "task_instance_id": { "type": "string" },
+        "seed": { "type": "integer", "minimum": 0 },
+        "success": { "type": "boolean" },
+        "g_final": { "type": "number", "minimum": 0, "maximum": 1 },
+        "g_0": { "type": "number", "minimum": 0, "maximum": 1 },
+        "g_target": { "type": "number", "minimum": 0, "maximum": 1 },
+        "iterations": { "type": "integer", "minimum": 1 },
+        "cost_usd": { "type": "number", "minimum": 0 },
+        "elapsed_s": { "type": "number", "minimum": 0 },
+        "termination_reason": { "type": "string" },
+        "safety_violations": { "type": "integer", "minimum": 0, "default": 0 },
+        "goal_trace": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "CategoryScores": {
+      "type": "object",
+      "required": [
+        "effectiveness",
+        "speed",
+        "cost",
+        "robustness",
+        "scalability",
+        "safety",
+        "adaptability",
+        "autonomy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "effectiveness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "speed": { "type": "number", "minimum": 0, "maximum": 1 },
+        "cost": { "type": "number", "minimum": 0, "maximum": 1 },
+        "robustness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "scalability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "safety": { "type": "number", "minimum": 0, "maximum": 1 },
+        "adaptability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "autonomy": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "TaskAggregate": {
+      "type": "object",
+      "required": [
+        "success_at_k",
+        "les_observed",
+        "les_display",
+        "categories",
+        "cost_usd_mean",
+        "robustness_seeds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "success_at_k": { "type": "number", "minimum": 0, "maximum": 1 },
+        "les_observed": { "type": "number", "minimum": 0, "maximum": 1 },
+        "les_display": { "type": "number", "minimum": 0, "maximum": 100 },
+        "categories": { "$ref": "#/$defs/CategoryScores" },
+        "cost_usd_mean": { "type": "number", "minimum": 0 },
+        "robustness_seeds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "TaskResult": {
+      "type": "object",
+      "required": ["task_id", "env_id", "runs", "aggregate"],
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "enum": ["LB-CR-1", "LB-RS-1", "LB-MA-1"]
+        },
+        "env_id": { "type": "string", "minLength": 1 },
+        "runs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/RunRecord" }
+        },
+        "aggregate": { "$ref": "#/$defs/TaskAggregate" }
+      }
+    },
+    "CompositeScore": {
+      "type": "object",
+      "required": ["les_observed", "les_display", "rank_score"],
+      "additionalProperties": false,
+      "properties": {
+        "les_observed": { "type": "number", "minimum": 0, "maximum": 1 },
+        "les_display": { "type": "number", "minimum": 0, "maximum": 100 },
+        "rank_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

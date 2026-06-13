@@ -1,0 +1,10 @@
+# LoopBench task registry (ALS v2)
+version: "0.1.0"
+suite: loopbench-1.0
+tasks:
+  - id: LB-CR-1
+    path: LB-CR-1/task.yaml
+  - id: LB-RS-1
+    path: LB-RS-1/task.yaml
+  - id: LB-MA-1
+    path: LB-MA-1/task.yaml

@@ -1,0 +1,4 @@
+# Install LoopGym first (local sibling or from git):
+#   pip install -e ../LoopGym
+#   pip install git+https://github.com/KanakMalpani/LoopGym.git
+-e ../LoopGym

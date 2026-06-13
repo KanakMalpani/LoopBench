@@ -1,0 +1,51 @@
+name: test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: KanakMalpani/LoopGym
+          path: deps/LoopGym
+
+      - uses: actions/checkout@v4
+        with:
+          repository: KanakMalpani/Loop-Core-Engineering
+          path: deps/loop-core
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install loopgym
+        run: pip install -e deps/LoopGym
+
+      - name: Install loopbench
+        run: pip install -e ".[dev]"
+
+      - name: Validate submission LSS specs (Loop Core Engineering)
+        run: |
+          pip install -r deps/loop-core/requirements.txt
+          python deps/loop-core/tools/validate_lss.py submissions/examples/spec-fast-loop.yaml
+          python deps/loop-core/tools/validate_lss.py submissions/examples/spec-thorough-loop.yaml
+
+      - name: Run tests
+        run: pytest tests/ -q
+
+      - name: Validate leaderboard
+        run: loopbench validate leaderboard/entries.json
+
+      - name: Golden submission CLI
+        run: |
+          loopbench run --task LB-CR-1 --spec submissions/examples/spec-fast-loop.yaml \
+            --seeds 0,1 --submitter ci-fast -o /tmp/fast.json
+          loopbench validate /tmp/fast.json

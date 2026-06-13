@@ -1,0 +1,146 @@
+loop_name: code-repair-thorough
+version: 1.0.0
+
+objective: >
+  Thorough verify-driven repair targeting primary_quality >= 0.90 with extended iteration budget.
+
+inputs:
+  schema:
+    bug_description:
+      type: string
+      description: "Natural language description of the bug"
+      required: true
+      max_length: 2000
+    repo_snapshot:
+      type: string
+      description: "Path or identifier for the repository fixture"
+      required: true
+  examples:
+    - bug_description: "parse_int returns None instead of raising ValueError"
+      repo_snapshot: "fixtures/calc-v1"
+
+memory:
+  type: session
+  backend: redis
+  retention:
+    unit: iteration
+    value: 8
+
+workers:
+  - id: implementer
+    role: "Analyze failing tests and produce a minimal code patch"
+    model:
+      provider: openai
+      name: gpt-4.1-mini
+      temperature: 0.1
+    inputs:
+      - from: inputs.bug_description
+    outputs:
+      name: Patch
+      format: code
+    timeout_seconds: 180
+    retries: 2
+    cost_budget_usd: 0.30
+
+evaluators:
+  - id: test_runner
+    type: deterministic
+    runs_after: [implementer]
+    implementation: evaluators.test_pass_rate
+  - id: quality_rubric
+    type: llm_rubric
+    runs_after: [implementer]
+    rubric:
+      dimensions:
+        - name: correctness
+          weight: 0.7
+          scale: [0, 1]
+          criteria: "Patch fixes the bug without breaking other tests"
+        - name: minimality
+          weight: 0.3
+          scale: [0, 1]
+          criteria: "Diff is minimal and focused"
+      pass_threshold: 0.90
+    model:
+      provider: openai
+      name: gpt-4.1-mini
+      temperature: 0
+
+feedback_channels:
+  - id: tests_to_implementer
+    source: evaluators.test_runner
+    destination: workers.implementer
+    format: structured
+    fields: [failure_codes, remediation_hints]
+  - id: rubric_to_optimizer
+    source: evaluators.quality_rubric
+    destination: optimization_strategy.prompt_refinement
+    format: structured
+    fields: [failure_codes, remediation_hints]
+
+optimization_strategy:
+  type: prompt_refinement
+  max_steps: 8
+  config:
+    refinement_target: workers.implementer
+  rollback:
+    on_metric_drop: 0.03
+    on_safety_failure: true
+
+termination_conditions:
+  success:
+    - metric: primary_quality
+      operator: gte
+      value: 0.90
+      consecutive: 2
+  failure:
+    - type: max_iterations
+      value: 8
+      action: halt
+    - type: safety_violation
+      action: halt
+  stall:
+    - metric: primary_quality
+      window_iterations: 3
+      min_improvement: 0.02
+      action: halt
+
+metrics:
+  - name: primary_quality
+    primary: true
+    definition: "Weighted rubric score"
+    source: evaluators.quality_rubric
+    unit: ratio
+    target: 0.90
+  - name: test_pass_rate
+    definition: "Fraction of tests passing"
+    source: evaluators.test_runner
+    unit: ratio
+    target: 1.0
+  - name: cost_usd
+    definition: "Total spend"
+    source: telemetry.cost
+    unit: usd
+    target: 0.80
+
+safety_constraints:
+  - id: secret-scan
+    type: secret_scan
+    scope: post_worker
+    applies_to: [implementer]
+    action: halt
+    severity: S0
+    on_error: halt
+  - id: injection-guard
+    type: injection_detect
+    scope: pre_worker
+    applies_to: [implementer]
+    action: quarantine
+    severity: S0
+    on_error: halt
+
+cost_limits:
+  per_iteration_usd: 0.20
+  cumulative_usd: 0.80
+  on_exceed:
+    action: halt

@@ -1,0 +1,66 @@
+# LoopBench task spec — Research Synthesis (ALS v2)
+id: LB-RS-1
+slug: lb/research-synthesis-1
+name: Research Synthesis
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/research-synthesis-v1
+pattern_slugs:
+  - research-loop
+  - critique-loop
+
+goal:
+  g_target: 0.85
+  scalar: "0.50 × coverage + 0.50 × evidence"
+  primary_metric: primary_quality
+
+budget:
+  iteration_budget: 5
+  wall_clock_minutes: 45
+  cost_cap_usd: 0.75
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - rs-001
+    - rs-002
+    - rs-003
+
+oracle:
+  type: mixed
+  checks:
+    - evaluators.citation_count_min
+    - evaluators.quality_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - cost
+  - adaptability
+
+speed_baselines:
+  b_floor_iter_per_s: 0.001
+  b_ceiling_iter_per_s: 0.05
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - pii_leakage
+    - unauthorized_egress

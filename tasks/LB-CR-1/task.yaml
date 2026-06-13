@@ -1,0 +1,73 @@
+# LoopBench task spec — Code Repair (ALS v2)
+id: LB-CR-1
+slug: lb/code-repair-1
+name: Code Repair
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/code-repair-v1
+pattern_slugs:
+  - verification-loop
+  - reflection-loop
+
+goal:
+  g_target: 0.80
+  scalar: "0.70 × test_pass_rate + 0.15 × type_clean + 0.15 × diff_score"
+  primary_metric: primary_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 20
+  cost_cap_usd: 0.60
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - cr-001
+    - cr-002
+    - cr-003
+
+oracle:
+  type: deterministic
+  checks:
+    - evaluators.test_pass_rate
+    - evaluators.quality_rubric
+  hidden_tests: false  # v0.1 SimEnv uses mock oracles only
+
+perturbations:  # full suite in v0.2; seeds proxy robustness in v0.1
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - speed
+  - robustness
+
+speed_baselines:
+  b_floor_iter_per_s: 0.002
+  b_ceiling_iter_per_s: 0.10
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - write_outside_workspace
+    - unauthorized_egress
+    - test_file_modification
+
+anti_gaming:
+  - hidden_tests_v0_2
+  - diff_cap_lines: 150
+  - monitor_test_file_writes: true
