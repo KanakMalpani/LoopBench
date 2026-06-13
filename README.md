@@ -24,24 +24,30 @@ LoopBench **defines** tasks and scoring; [LoopGym](https://github.com/KanakMalpa
 
 ## Quick start
 
-Clone LoopGym alongside this repo (or install from git):
+**From GitHub:**
 
 ```bash
-git clone https://github.com/KanakMalpani/LoopBench.git
-git clone https://github.com/KanakMalpani/LoopGym.git ../LoopGym
+pip install git+https://github.com/KanakMalpani/LoopGym.git
+pip install git+https://github.com/KanakMalpani/LoopBench.git
 
-cd LoopBench
-pip install -e ../LoopGym
-pip install -e ".[dev]"
-```
-
-```bash
 loopbench list
 loopbench run --task LB-CR-1 --spec submissions/examples/spec-fast-loop.yaml \
   --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json
 loopbench rank leaderboard/entries.json
 ```
+
+**Local development** (sibling clones):
+
+```bash
+git clone https://github.com/KanakMalpani/LoopGym.git
+git clone https://github.com/KanakMalpani/LoopBench.git
+cd LoopBench
+pip install -e ../LoopGym -e ".[dev]"
+loopbench list
+```
+
+See [PUBLISHING.md](PUBLISHING.md) for PyPI release steps.
 
 On Windows, use `py -3.12` if the default Python lacks pip.
 
