@@ -28,6 +28,10 @@ loopbench validate results.json
   <a href="SUITE-OVERVIEW.md">Suite architecture</a>
 </p>
 
+<p align="center">
+  <img src="assets/demo.gif" alt="LoopBench CLI demo: install, list tasks, run, validate, rank" width="720">
+</p>
+
 ---
 
 ## The contract
