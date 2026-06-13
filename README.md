@@ -1,70 +1,99 @@
-<p align="center">
-  <strong>LoopBench</strong><br>
-  <em>MLPerf for loops.</em>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml"><img src="https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml/badge.svg" alt="CI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT"></a>
-  <img src="https://img.shields.io/badge/python-3.12+-blue.svg" alt="Python 3.12+">
-  <a href="SUITE-OVERVIEW.md"><img src="https://img.shields.io/badge/suite-ALS_v2-blue.svg" alt="ALS v2"></a>
-  <img src="https://img.shields.io/badge/tasks-3-green.svg" alt="3 tasks">
-</p>
+# LoopBench
+
+**The public scoreboard for loop engineering.**
+
+Fixed tasks. Fixed seeds. Observed [LES](https://github.com/KanakMalpani/Loop-Core-Engineering/blob/main/specs/les-1.0.md). Submissions anyone can audit.
+
+No hand-waved demos — bring an [LSS](https://github.com/KanakMalpani/Loop-Core-Engineering) spec, get a number, climb the leaderboard.
+
+<br>
+
+[![CI](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml/badge.svg)](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml)
+[![PyPI](https://img.shields.io/pypi/v/loopbench.svg)](https://pypi.org/project/loopbench/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Tasks](https://img.shields.io/badge/tasks-3-green.svg)](tasks/)
+[![Suite](https://img.shields.io/badge/suite-ALS_v2-blue.svg)](SUITE-OVERVIEW.md)
+
+<br>
+
+```bash
+pip install loopbench loopgym
+loopbench list
+```
+
+<br>
+
+[**Run your first score**](#score-in-2-minutes) · [**Leaderboard**](leaderboard/entries.json) · [**Suite overview**](SUITE-OVERVIEW.md)
+
+<br>
+
+<img src="assets/demo.gif" alt="LoopBench: install, list tasks, run, validate, rank" width="720">
+
+</div>
 
 ---
 
-**LoopBench** is the public scoreboard for Loop Engineering — fixed tasks, fixed seeds, observed [LES](https://github.com/KanakMalpani/Loop-Core-Engineering/blob/main/specs/les-1.0.md), and a submission pipeline anyone can audit.
+## What LoopBench measures
 
-You bring an [LSS](https://github.com/KanakMalpani/Loop-Core-Engineering) loop spec. LoopBench runs it through [LoopGym](https://github.com/KanakMalpani/LoopGym), computes **LES_obs** across eight categories, validates your results JSON, and ranks you on the leaderboard. No hand-waved demos.
+You submit a **loop specification** (LSS YAML). LoopBench:
+
+1. Runs it through [LoopGym](https://github.com/KanakMalpani/LoopGym) on fixed task instances
+2. Computes **Success@k** and **LES_obs** across eight categories
+3. Validates your `results.json` against a published schema
+4. Ranks you on the public leaderboard
 
 ```bash
 loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json
+loopbench rank leaderboard/entries.json
 ```
-
-<p align="center">
-  <a href="#-run-your-first-score"><strong>Run your first score →</strong></a> ·
-  <a href="leaderboard/entries.json">Leaderboard</a> ·
-  <a href="SUITE-OVERVIEW.md">Suite architecture</a>
-</p>
-
-<p align="center">
-  <img src="assets/demo.gif" alt="LoopBench CLI demo: install, list tasks, run, validate, rank" width="720">
-</p>
 
 ---
 
-## The contract
+## The measurement stack
 
 ```mermaid
 flowchart LR
-  YOU[Your LSS spec]
-  LB[LoopBench<br/>tasks · scoring · schema]
-  LG[LoopGym<br/>execution]
-  OUT[results.json → leaderboard]
+  YOU["Your LSS spec"]
+  LB["LoopBench<br/>tasks · scoring · conformance"]
+  LG["LoopGym<br/>SimEnv execution"]
+  OUT["results.json → leaderboard"]
 
   YOU --> LB
-  LB -->|env_id, seeds| LG
-  LG -->|trajectories| LB
+  LB --> LG
+  LG --> LB
   LB --> OUT
 ```
 
 | Layer | Owns | Repo |
 |-------|------|------|
 | **Spec** | LSS schema, LES formulas | [Loop Core Engineering](https://github.com/KanakMalpani/Loop-Core-Engineering) |
-| **Data** | Trajectories (optional holdout) | [LoopNet](https://github.com/KanakMalpani/loopnet) |
+| **Data** | Trajectories (holdout v0.2) | [LoopNet](https://github.com/KanakMalpani/loopnet) |
 | **Runtime** | `env.run_episode()` | [LoopGym](https://github.com/KanakMalpani/LoopGym) |
-| **Measurement** | Tasks, LES_obs, submissions | **LoopBench** |
+| **Measurement** | Tasks, LES_obs, anti-gaming | **LoopBench** |
 
 LoopBench **defines** and **scores**. LoopGym **runs**. Never the other way around.
 
 ---
 
-## ⚡ Run your first score
+## Tasks (v0.1)
+
+| ID | Name | What it exposes |
+|----|------|-----------------|
+| **`LB-CR-1`** | Code repair | Can your loop fix broken code under verify pressure? |
+| **`LB-RS-1`** | Research synthesis | Quality vs. cost on structured briefs |
+| **`LB-MA-1`** | Multi-agent debate | Autonomy + coordination under evaluator scrutiny |
+
+Five seeds per task. Details in [`tasks/`](tasks/).
+
+---
+
+## Score in 2 minutes
 
 ```bash
-pip install git+https://github.com/KanakMalpani/LoopGym.git
-pip install git+https://github.com/KanakMalpani/LoopBench.git
+pip install loopbench loopgym
 
 loopbench list
 
@@ -75,67 +104,35 @@ loopbench run \
   -o results.json
 
 loopbench validate results.json
-loopbench rank leaderboard/entries.json
 ```
 
-**Local dev** (sibling clones):
+**Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
 
-```bash
-git clone https://github.com/KanakMalpani/LoopGym.git
-git clone https://github.com/KanakMalpani/LoopBench.git
-cd LoopBench && pip install -e ../LoopGym -e ".[dev]"
-```
-
-On Windows: `py -3.12` if needed. PyPI: [PUBLISHING.md](PUBLISHING.md).
+v0.1 accepts **SimEnv** submissions only (fully reproducible, no API keys). LiveEnv tier: v0.2.
 
 ---
 
-## Tasks (v0.1 · ALS v2)
-
-| ID | Name | Env | What it stress-tests |
-|----|------|-----|----------------------|
-| `LB-CR-1` | Code repair | `loopbench/code-repair-v1` | Effectiveness, speed, robustness |
-| `LB-RS-1` | Research synthesis | `loopbench/research-synthesis-v1` | Effectiveness, cost |
-| `LB-MA-1` | Multi-agent debate | `loopbench/multi-agent-debate-v1` | Autonomy, scalability |
-
-Each task ships YAML + README under [`tasks/`](tasks/). Five seeds by default. Success@k + **LES_obs** composite.
-
----
-
-## Metrics
+## Metrics explained
 
 | Metric | Meaning |
 |--------|---------|
-| **Success@k** | Fraction of instances reaching goal threshold `g_target` |
-| **LES_obs** | Observed eight-category composite ∈ `[0, 1]` — see [`metrics/les-compute.md`](metrics/les-compute.md) |
-| **Cost** | Estimated USD per run from LSS cost limits |
+| **Success@k** | Fraction of instances reaching goal threshold |
+| **LES_obs** | Observed composite ∈ `[0, 1]` — [eight categories](metrics/les-compute.md) |
+| **Cost** | Estimated USD from LSS cost limits |
 | **Robustness** | Quality retention across seeds |
 
-Display scale `0–100` is optional (`les_display = les_observed × 100`).
+Display scale 0–100 is optional (`les × 100`).
 
 ---
 
-## Submit to the leaderboard
+## Who this is for
 
-1. Run all tasks (or start with one):  
-   `loopbench run --task LB-CR-1,LB-RS-1,LB-MA-1 --spec your-loop.yaml -o results.json`
-2. Validate: `loopbench validate results.json`
-3. Open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json)
-
-v0.1 rankings accept **SimEnv** submissions only (no API keys, fully reproducible). LiveEnv tier: v0.2.
-
----
-
-## Repository layout
-
-| Path | Purpose |
-|------|---------|
-| [`tasks/`](tasks/) | ALS v2 task definitions |
-| [`metrics/les-compute.md`](metrics/les-compute.md) | LES_obs formulas |
-| [`submit/schema.json`](submit/schema.json) | Submission JSON schema |
-| [`loopbench/`](loopbench/) | Runner, LES compute, conformance |
-| [`leaderboard/`](leaderboard/) | Public rankings (JSON v0.1) |
-| [`submissions/examples/`](submissions/examples/) | Reference specs |
+| You are… | LoopBench gives you… |
+|----------|---------------------|
+| **Loop designer** | A number you can improve release-over-release |
+| **Framework author** | A neutral arena — not your own benchmark |
+| **Researcher** | Reproducible tasks + published submission schema |
+| **Team lead** | Comparable scores across designs and vendors |
 
 ---
 
@@ -146,12 +143,12 @@ v0.1 rankings accept **SimEnv** submissions only (no API keys, fully reproducibl
   title={LoopBench: Benchmark Suite for Loop Engineering},
   author={Malpani, Kanak},
   year={2026},
-  url={https://github.com/KanakMalpani/LoopBench}
+  url={https://pypi.org/project/loopbench/}
 }
 ```
 
----
+<div align="center">
 
-<p align="center">
-  <sub>MIT · v0.1 · <a href="CONTRIBUTING.md">Contributing</a> · <a href="SECURITY.md">Security</a> · <a href="STATUS.md">Status</a></sub>
-</p>
+<sub>MIT · v0.1 · <a href="CONTRIBUTING.md">Contributing</a> · <a href="SECURITY.md">Security</a> · <a href="STATUS.md">Status</a></sub>
+
+</div>
