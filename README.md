@@ -72,9 +72,12 @@ flowchart LR
 | **Spec** | LSS schema, LES formulas | [Loop Core Engineering](https://github.com/KanakMalpani/Loop-Core-Engineering) |
 | **Data** | Trajectories (holdout v0.2) | [LoopNet](https://github.com/KanakMalpani/loopnet) |
 | **Runtime** | `env.run_episode()` | [LoopGym](https://github.com/KanakMalpani/LoopGym) |
+| **Observability** | LTF traces, iteration metrics | [loop-observability](https://github.com/KanakMalpani/loop-observability) |
 | **Measurement** | Tasks, LES_obs, anti-gaming | **LoopBench** |
 
 LoopBench **defines** and **scores**. LoopGym **runs**. Never the other way around.
+
+New to the stack? Start with the [LoopNet end-to-end tutorial](https://github.com/KanakMalpani/loopnet/blob/main/guides/END-TO-END-TUTORIAL.md).
 
 ---
 
