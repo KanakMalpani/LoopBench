@@ -46,7 +46,7 @@ def test_submission_specs_validate_against_lss(spec_file: Path) -> None:
     assert result.returncode == 0, result.stderr or result.stdout
 
 
-@pytest.mark.parametrize("task_id", ["LB-CR-1", "LB-RS-1", "LB-MA-1"])
+@pytest.mark.parametrize("task_id", ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"])
 def test_smoke_run_all_tasks(task_id: str) -> None:
     from loopbench.runner import run_task
 

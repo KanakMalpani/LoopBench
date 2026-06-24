@@ -3,253 +3,6 @@
   "updated": "2026-06-24",
   "entries": [
     {
-      "submission_id": "8d844734-e560-4f83-bbf9-19edede3fa67",
-      "submitter": "Team Thorough",
-      "loopbench_version": "0.1.0",
-      "lss_version": "1.0.0",
-      "les_version": "1.0.0",
-      "spec_path": "submissions/examples/spec-thorough-loop.yaml",
-      "spec_hash": "sha256:c73e7a5f2484bd917fd3615ee26d05984b16c24a14cbc7b4e0b31b8009c52c44",
-      "submitted_at": "2026-06-13T11:43:21.609237+00:00",
-      "backend": "sim",
-      "results": [
-        {
-          "task_id": "LB-CR-1",
-          "env_id": "loopbench/code-repair-v1",
-          "runs": [
-            {
-              "task_instance_id": "cr-001",
-              "seed": 0,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0008,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 1,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.63,
-              "g_target": 0.8,
-              "iterations": 4,
-              "cost_usd": 0.8,
-              "elapsed_s": 0.0005,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.63,
-                0.75,
-                0.88,
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 2,
-              "success": true,
-              "g_final": 0.97,
-              "g_0": 0.97,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.97
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 3,
-              "success": true,
-              "g_final": 0.9,
-              "g_0": 0.9,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.9
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 4,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            }
-          ],
-          "aggregate": {
-            "success_at_k": 1.0,
-            "les_observed": 0.8642,
-            "les_display": 86.4,
-            "categories": {
-              "effectiveness": 1.0,
-              "speed": 1.0,
-              "cost": 0.0,
-              "safety": 1.0,
-              "robustness": 0.9091,
-              "scalability": 1.0,
-              "adaptability": 1.0,
-              "autonomy": 0.95
-            },
-            "cost_usd_mean": 0.32,
-            "robustness_seeds": 5
-          }
-        }
-      ],
-      "composite": {
-        "les_observed": 0.8642,
-        "les_display": 86.4,
-        "rank_score": 0.8642
-      }
-    },
-    {
-      "submission_id": "9836a8e9-e234-4a93-91c5-0f2c99344531",
-      "submitter": "Team Fast",
-      "loopbench_version": "0.1.0",
-      "lss_version": "1.0.0",
-      "les_version": "1.0.0",
-      "spec_path": "submissions/examples/spec-fast-loop.yaml",
-      "spec_hash": "sha256:4fc439bdf02b5555d9d0ec4e1d6e3cb6626933bd1bdcfa674d6a1022a2e19215",
-      "submitted_at": "2026-06-13T11:43:21.642542+00:00",
-      "backend": "sim",
-      "results": [
-        {
-          "task_id": "LB-CR-1",
-          "env_id": "loopbench/code-repair-v1",
-          "runs": [
-            {
-              "task_instance_id": "cr-001",
-              "seed": 0,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.1,
-              "elapsed_s": 0.0005,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 1,
-              "success": true,
-              "g_final": 0.76,
-              "g_0": 0.64,
-              "g_target": 0.8,
-              "iterations": 2,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0005,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.64,
-                0.76
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 2,
-              "success": true,
-              "g_final": 0.86,
-              "g_0": 0.74,
-              "g_target": 0.8,
-              "iterations": 2,
-              "cost_usd": 0.2,
-              "elapsed_s": 0.0005,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.74,
-                0.86
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 3,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.1,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "cr-001",
-              "seed": 4,
-              "success": true,
-              "g_final": 0.97,
-              "g_0": 0.97,
-              "g_target": 0.8,
-              "iterations": 1,
-              "cost_usd": 0.1,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.97
-              ]
-            }
-          ],
-          "aggregate": {
-            "success_at_k": 1.0,
-            "les_observed": 0.8058,
-            "les_display": 80.6,
-            "categories": {
-              "effectiveness": 0.8,
-              "speed": 1.0,
-              "cost": 0.0,
-              "safety": 1.0,
-              "robustness": 0.7677,
-              "scalability": 1.0,
-              "adaptability": 1.0,
-              "autonomy": 0.95
-            },
-            "cost_usd_mean": 0.14,
-            "robustness_seeds": 5
-          }
-        }
-      ],
-      "composite": {
-        "les_observed": 0.8058,
-        "les_display": 80.6,
-        "rank_score": 0.8058
-      }
-    },
-    {
       "submitter": "Loop Engineering maintainer",
       "loopbench_version": "0.1.0",
       "lss_version": "1.0.0",
@@ -540,6 +293,420 @@
         "rank_score": 0.8671
       },
       "submission_id": "3b1db2f4-86f2-4fba-af9b-cdbd40091b42"
+    },
+    {
+      "submission_id": "00dda7ed-e239-492e-b223-1d67079ee640",
+      "submitter": "Loop Engineering maintainer (MA-1)",
+      "loopbench_version": "0.1.0",
+      "lss_version": "1.0.0",
+      "les_version": "1.0.0",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/coding-agent.yaml",
+      "spec_hash": "sha256:a7958a51b77289a7be904471a540808951378f6eee6e74683aef3a28d68d079e",
+      "submitted_at": "2026-06-24T08:40:34.500704+00:00",
+      "backend": "sim",
+      "results": [
+        {
+          "task_id": "LB-MA-1",
+          "env_id": "loopbench/multi-agent-debate-v1",
+          "runs": [
+            {
+              "task_instance_id": "ma-001",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.89,
+              "g_0": 0.89,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0102,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.89
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0005,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.96,
+              "g_0": 0.84,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 0.84,
+              "elapsed_s": 0.0006,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.84,
+                0.96
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.9,
+              "g_0": 0.77,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 0.84,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.77,
+                0.9
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.94,
+              "g_0": 0.82,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 0.84,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.82,
+                0.94
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.88,
+              "g_0": 0.88,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.88
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.94,
+              "g_0": 0.94,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.94
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.91,
+              "g_0": 0.67,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.26,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.67,
+                0.79,
+                0.91
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.91,
+              "g_0": 0.67,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.26,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.67,
+                0.79,
+                0.91
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.92,
+              "g_0": 0.92,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.92
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.89,
+              "g_0": 0.89,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.89
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.94,
+              "g_0": 0.94,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.42,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.94
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.98,
+              "g_0": 0.74,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.26,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.74,
+                0.86,
+                0.98
+              ]
+            }
+          ],
+          "aggregate": {
+            "success_at_k": 1.0,
+            "les_observed": 0.8645,
+            "les_display": 86.5,
+            "categories": {
+              "effectiveness": 1.0,
+              "speed": 1.0,
+              "cost": 0.0243,
+              "safety": 1.0,
+              "robustness": 0.8889,
+              "scalability": 1.0,
+              "adaptability": 1.0,
+              "autonomy": 0.95
+            },
+            "cost_usd_mean": 0.672,
+            "robustness_seeds": 5
+          }
+        }
+      ],
+      "composite": {
+        "les_observed": 0.8645,
+        "les_display": 86.5,
+        "rank_score": 0.8645
+      }
+    },
+    {
+      "submission_id": "8d844734-e560-4f83-bbf9-19edede3fa67",
+      "submitter": "Team Thorough",
+      "loopbench_version": "0.1.0",
+      "lss_version": "1.0.0",
+      "les_version": "1.0.0",
+      "spec_path": "submissions/examples/spec-thorough-loop.yaml",
+      "spec_hash": "sha256:0f229e6dd63507787fe749ed0d4ca8d41b24b07239392645a0543ce4a24a4db1",
+      "submitted_at": "2026-06-13T11:43:21.609237+00:00",
+      "backend": "sim",
+      "results": [
+        {
+          "task_id": "LB-CR-1",
+          "env_id": "loopbench/code-repair-v1",
+          "runs": [
+            {
+              "task_instance_id": "cr-001",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0008,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.63,
+              "g_target": 0.8,
+              "iterations": 4,
+              "cost_usd": 0.8,
+              "elapsed_s": 0.0005,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.63,
+                0.75,
+                0.88,
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.97,
+              "g_0": 0.97,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.97
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.9,
+              "g_0": 0.9,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.9
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            }
+          ],
+          "aggregate": {
+            "success_at_k": 1.0,
+            "les_observed": 0.8642,
+            "les_display": 86.4,
+            "categories": {
+              "effectiveness": 1.0,
+              "speed": 1.0,
+              "cost": 0.0,
+              "safety": 1.0,
+              "robustness": 0.9091,
+              "scalability": 1.0,
+              "adaptability": 1.0,
+              "autonomy": 0.95
+            },
+            "cost_usd_mean": 0.32,
+            "robustness_seeds": 5
+          }
+        }
+      ],
+      "composite": {
+        "les_observed": 0.8642,
+        "les_display": 86.4,
+        "rank_score": 0.8642
+      }
     },
     {
       "submission_id": "23817c7a-416c-4d97-917b-bd4f9dd32b58",
@@ -835,45 +1002,29 @@
       }
     },
     {
-      "submission_id": "00dda7ed-e239-492e-b223-1d67079ee640",
-      "submitter": "Loop Engineering maintainer (MA-1)",
+      "submission_id": "9836a8e9-e234-4a93-91c5-0f2c99344531",
+      "submitter": "Team Fast",
       "loopbench_version": "0.1.0",
       "lss_version": "1.0.0",
       "les_version": "1.0.0",
-      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/coding-agent.yaml",
-      "spec_hash": "sha256:a7958a51b77289a7be904471a540808951378f6eee6e74683aef3a28d68d079e",
-      "submitted_at": "2026-06-24T08:40:34.500704+00:00",
+      "spec_path": "submissions/examples/spec-fast-loop.yaml",
+      "spec_hash": "sha256:5517182d4f9f895f614889d52fed6faf971af9197f5b0075009cf9aa811970a5",
+      "submitted_at": "2026-06-13T11:43:21.642542+00:00",
       "backend": "sim",
       "results": [
         {
-          "task_id": "LB-MA-1",
-          "env_id": "loopbench/multi-agent-debate-v1",
+          "task_id": "LB-CR-1",
+          "env_id": "loopbench/code-repair-v1",
           "runs": [
             {
-              "task_instance_id": "ma-001",
+              "task_instance_id": "cr-001",
               "seed": 0,
-              "success": true,
-              "g_final": 0.89,
-              "g_0": 0.89,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0102,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.89
-              ]
-            },
-            {
-              "task_instance_id": "ma-001",
-              "seed": 1,
               "success": true,
               "g_final": 0.99,
               "g_0": 0.99,
-              "g_target": 0.88,
+              "g_target": 0.8,
               "iterations": 1,
-              "cost_usd": 0.42,
+              "cost_usd": 0.1,
               "elapsed_s": 0.0005,
               "termination_reason": "goal_met",
               "safety_violations": 0,
@@ -882,246 +1033,95 @@
               ]
             },
             {
-              "task_instance_id": "ma-001",
-              "seed": 2,
-              "success": true,
-              "g_final": 0.96,
-              "g_0": 0.84,
-              "g_target": 0.88,
-              "iterations": 2,
-              "cost_usd": 0.84,
-              "elapsed_s": 0.0006,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.84,
-                0.96
-              ]
-            },
-            {
-              "task_instance_id": "ma-001",
-              "seed": 3,
-              "success": true,
-              "g_final": 0.9,
-              "g_0": 0.77,
-              "g_target": 0.88,
-              "iterations": 2,
-              "cost_usd": 0.84,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.77,
-                0.9
-              ]
-            },
-            {
-              "task_instance_id": "ma-001",
-              "seed": 4,
-              "success": true,
-              "g_final": 0.94,
-              "g_0": 0.82,
-              "g_target": 0.88,
-              "iterations": 2,
-              "cost_usd": 0.84,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.82,
-                0.94
-              ]
-            },
-            {
-              "task_instance_id": "ma-002",
-              "seed": 0,
-              "success": true,
-              "g_final": 0.88,
-              "g_0": 0.88,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.88
-              ]
-            },
-            {
-              "task_instance_id": "ma-002",
+              "task_instance_id": "cr-001",
               "seed": 1,
               "success": true,
-              "g_final": 0.94,
-              "g_0": 0.94,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
+              "g_final": 0.76,
+              "g_0": 0.64,
+              "g_target": 0.8,
+              "iterations": 2,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0005,
               "termination_reason": "goal_met",
               "safety_violations": 0,
               "goal_trace": [
-                0.94
+                0.64,
+                0.76
               ]
             },
             {
-              "task_instance_id": "ma-002",
+              "task_instance_id": "cr-001",
               "seed": 2,
               "success": true,
-              "g_final": 0.91,
-              "g_0": 0.67,
-              "g_target": 0.88,
-              "iterations": 3,
-              "cost_usd": 1.26,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.67,
-                0.79,
-                0.91
-              ]
-            },
-            {
-              "task_instance_id": "ma-002",
-              "seed": 3,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "ma-002",
-              "seed": 4,
-              "success": true,
-              "g_final": 0.91,
-              "g_0": 0.67,
-              "g_target": 0.88,
-              "iterations": 3,
-              "cost_usd": 1.26,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.67,
-                0.79,
-                0.91
-              ]
-            },
-            {
-              "task_instance_id": "ma-003",
-              "seed": 0,
-              "success": true,
-              "g_final": 0.92,
-              "g_0": 0.92,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.92
-              ]
-            },
-            {
-              "task_instance_id": "ma-003",
-              "seed": 1,
-              "success": true,
-              "g_final": 0.89,
-              "g_0": 0.89,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.89
-              ]
-            },
-            {
-              "task_instance_id": "ma-003",
-              "seed": 2,
-              "success": true,
-              "g_final": 0.99,
-              "g_0": 0.99,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0003,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.99
-              ]
-            },
-            {
-              "task_instance_id": "ma-003",
-              "seed": 3,
-              "success": true,
-              "g_final": 0.94,
-              "g_0": 0.94,
-              "g_target": 0.88,
-              "iterations": 1,
-              "cost_usd": 0.42,
-              "elapsed_s": 0.0004,
-              "termination_reason": "goal_met",
-              "safety_violations": 0,
-              "goal_trace": [
-                0.94
-              ]
-            },
-            {
-              "task_instance_id": "ma-003",
-              "seed": 4,
-              "success": true,
-              "g_final": 0.98,
+              "g_final": 0.86,
               "g_0": 0.74,
-              "g_target": 0.88,
-              "iterations": 3,
-              "cost_usd": 1.26,
-              "elapsed_s": 0.0004,
+              "g_target": 0.8,
+              "iterations": 2,
+              "cost_usd": 0.2,
+              "elapsed_s": 0.0005,
               "termination_reason": "goal_met",
               "safety_violations": 0,
               "goal_trace": [
                 0.74,
-                0.86,
-                0.98
+                0.86
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.1,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "cr-001",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.97,
+              "g_0": 0.97,
+              "g_target": 0.8,
+              "iterations": 1,
+              "cost_usd": 0.1,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.97
               ]
             }
           ],
           "aggregate": {
             "success_at_k": 1.0,
-            "les_observed": 0.8645,
-            "les_display": 86.5,
+            "les_observed": 0.8058,
+            "les_display": 80.6,
             "categories": {
-              "effectiveness": 1.0,
+              "effectiveness": 0.8,
               "speed": 1.0,
-              "cost": 0.0243,
+              "cost": 0.0,
               "safety": 1.0,
-              "robustness": 0.8889,
+              "robustness": 0.7677,
               "scalability": 1.0,
               "adaptability": 1.0,
               "autonomy": 0.95
             },
-            "cost_usd_mean": 0.672,
+            "cost_usd_mean": 0.14,
             "robustness_seeds": 5
           }
         }
       ],
       "composite": {
-        "les_observed": 0.8645,
-        "les_display": 86.5,
-        "rank_score": 0.8645
+        "les_observed": 0.8058,
+        "les_display": 80.6,
+        "rank_score": 0.8058
       }
     },
     {
