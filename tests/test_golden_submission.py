@@ -63,4 +63,4 @@ def test_list_tasks() -> None:
     from loopbench.tasks import list_tasks
 
     tasks = list_tasks()
-    assert tasks == ["LB-CR-1", "LB-RS-1", "LB-MA-1"]
+    assert tasks == ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"]
