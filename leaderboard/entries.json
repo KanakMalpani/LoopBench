@@ -591,7 +591,7 @@
       "lss_version": "1.0.0",
       "les_version": "1.0.0",
       "spec_path": "submissions/examples/spec-thorough-loop.yaml",
-      "spec_hash": "sha256:0f229e6dd63507787fe749ed0d4ca8d41b24b07239392645a0543ce4a24a4db1",
+      "spec_hash": "sha256:c73e7a5f2484bd917fd3615ee26d05984b16c24a14cbc7b4e0b31b8009c52c44",
       "submitted_at": "2026-06-13T11:43:21.609237+00:00",
       "backend": "sim",
       "results": [
@@ -1008,7 +1008,7 @@
       "lss_version": "1.0.0",
       "les_version": "1.0.0",
       "spec_path": "submissions/examples/spec-fast-loop.yaml",
-      "spec_hash": "sha256:5517182d4f9f895f614889d52fed6faf971af9197f5b0075009cf9aa811970a5",
+      "spec_hash": "sha256:4fc439bdf02b5555d9d0ec4e1d6e3cb6626933bd1bdcfa674d6a1022a2e19215",
       "submitted_at": "2026-06-13T11:43:21.642542+00:00",
       "backend": "sim",
       "results": [
