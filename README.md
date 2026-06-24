@@ -100,7 +100,9 @@ Post your **60-minute reproduction report** on the [reproduction challenge](http
 
 ### Beat maintainer LES (good-first #4)
 
-**One command:** [BEAT_LB-CR-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md) — target LES_obs **≥ 86.7** on LB-CR-1, then PR your row here.
+**One command:** [BEAT_LB-CR-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md) — target LES_obs **≥ 86.7** on LB-CR-1.
+
+Also: [BEAT_LB-RS-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-RS-1.md) (81.9) · [BEAT_LB-MA-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-MA-1.md) (86.5)
 
 ```bash
 pip install "loopbench>=0.1.1" loopgym
