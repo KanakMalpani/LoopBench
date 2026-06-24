@@ -13,7 +13,7 @@ No hand-waved demos — bring an [LSS](https://github.com/KanakMalpani/Loop-Core
 [![CI](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml/badge.svg)](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml)
 [![PyPI](https://img.shields.io/pypi/v/loopbench.svg)](https://pypi.org/project/loopbench/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tasks](https://img.shields.io/badge/tasks-3-green.svg)](tasks/)
+[![Tasks](https://img.shields.io/badge/tasks-4-green.svg)](tasks/)
 [![Suite](https://img.shields.io/badge/suite-ALS_v2-blue.svg)](SUITE-OVERVIEW.md)
 
 <br>
@@ -88,8 +88,17 @@ New to the stack? Start with the [LoopNet end-to-end tutorial](https://github.co
 | **`LB-CR-1`** | Code repair | Can your loop fix broken code under verify pressure? |
 | **`LB-RS-1`** | Research synthesis | Quality vs. cost on structured briefs |
 | **`LB-MA-1`** | Multi-agent debate | Autonomy + coordination under evaluator scrutiny |
+| **`LB-COMP-1`** | Composed swarm rehearsal | Parallel branches + merge (MiroFish-style LSS) |
 
 Five seeds per task. Details in [`tasks/`](tasks/).
+
+---
+
+## Validate and reproduce
+
+Post your **60-minute reproduction report** on the [reproduction challenge](https://github.com/KanakMalpani/Loop-Engineering/discussions/10) after [REPRODUCE.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/REPRODUCE.md).
+
+**Beat maintainer LES?** Start with [good-first issue #4](https://github.com/KanakMalpani/Loop-Engineering/issues/4).
 
 ---
 
@@ -109,7 +118,7 @@ loopbench run \
 loopbench validate results.json
 ```
 
-$insert**Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
+**Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
 
 v0.1 accepts **SimEnv** submissions only (fully reproducible, no API keys). LiveEnv tier: v0.2.
 
