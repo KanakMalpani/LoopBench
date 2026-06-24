@@ -31,6 +31,7 @@ LoopBench is the **measurement layer** of Loop Engineering: fixed tasks, fixed s
 | `LB-CR-1` | `loopbench/code-repair-v1` | verification, reflection | Effectiveness, speed, robustness |
 | `LB-RS-1` | `loopbench/research-synthesis-v1` | research-loop | Effectiveness, cost |
 | `LB-MA-1` | `loopbench/multi-agent-debate-v1` | debate, multi-agent | Robustness, adaptability |
+| `LB-COMP-1` | `loopbench/composed-swarm-v1` | parallel composition, swarm | Autonomy, scalability |
 
 Registry: [`tasks/index.yaml`](tasks/index.yaml)
 

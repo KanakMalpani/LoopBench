@@ -5,7 +5,7 @@ name: Composed Swarm Rehearsal
 version: 1.0.0
 status: preview
 
-loopgym_env: loopbench/multi-agent-debate-v1
+loopgym_env: loopbench/composed-swarm-v1
 pattern_slugs:
   - scenario-swarm-rehearsal
   - multi-agent-coordination
@@ -26,9 +26,9 @@ evaluation:
   min_runs_per_instance: 1
   success_at_k: 1
   primary_instances:
-    - ma-001
-    - ma-002
-    - ma-003
+    - comp-001
+    - comp-002
+    - comp-003
 
 oracle:
   type: llm_rubric
@@ -66,6 +66,6 @@ safety:
     - safety_bypass
 
 notes: >
-  v0.1 preview uses multi-agent-debate-v1 SimEnv as proxy.
+  Uses loopbench/composed-swarm-v1 SimEnv (parallel branch + orchestrator merge).
   Submit LSS spec loop-library/compositions/scenario-swarm-rehearsal.yaml.
   Reproduction challenge: https://github.com/KanakMalpani/Loop-Engineering/discussions/10
