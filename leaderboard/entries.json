@@ -1123,6 +1123,299 @@
         "les_display": 86.5,
         "rank_score": 0.8645
       }
+    },
+    {
+      "submission_id": "23f2d872-ca96-4416-b1ef-62755607c4c1",
+      "submitter": "Loop Engineering maintainer (COMP-1)",
+      "loopbench_version": "0.1.0",
+      "lss_version": "1.0.0",
+      "les_version": "1.0.0",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/scenario-swarm-rehearsal.yaml",
+      "spec_hash": "sha256:e2d6117d0eeffff43ca8d3839790706dcd7c2175623b65e50840d9242f1e3cc4",
+      "submitted_at": "2026-06-24T10:21:47.289013+00:00",
+      "backend": "sim",
+      "results": [
+        {
+          "task_id": "LB-COMP-1",
+          "env_id": "loopbench/multi-agent-debate-v1",
+          "runs": [
+            {
+              "task_instance_id": "ma-001",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.8,
+              "g_0": 0.67,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0006,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.67,
+                0.8
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.98,
+              "g_0": 0.98,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.98
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.87,
+              "g_0": 0.63,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.71,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.63,
+                0.75,
+                0.87
+              ]
+            },
+            {
+              "task_instance_id": "ma-001",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.91,
+              "g_0": 0.79,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.79,
+                0.91
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.85,
+              "g_0": 0.73,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.73,
+                0.85
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0004,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.89,
+              "g_0": 0.65,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.71,
+              "elapsed_s": 0.0005,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.65,
+                0.77,
+                0.89
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-002",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.99,
+              "g_0": 0.99,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.99
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 0,
+              "success": true,
+              "g_final": 0.94,
+              "g_0": 0.94,
+              "g_target": 0.88,
+              "iterations": 1,
+              "cost_usd": 0.57,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.94
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 1,
+              "success": true,
+              "g_final": 0.81,
+              "g_0": 0.69,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.69,
+                0.81
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 2,
+              "success": true,
+              "g_final": 0.83,
+              "g_0": 0.71,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.71,
+                0.83
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 3,
+              "success": true,
+              "g_final": 0.92,
+              "g_0": 0.67,
+              "g_target": 0.88,
+              "iterations": 3,
+              "cost_usd": 1.71,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.67,
+                0.79,
+                0.92
+              ]
+            },
+            {
+              "task_instance_id": "ma-003",
+              "seed": 4,
+              "success": true,
+              "g_final": 0.81,
+              "g_0": 0.69,
+              "g_target": 0.88,
+              "iterations": 2,
+              "cost_usd": 1.14,
+              "elapsed_s": 0.0003,
+              "termination_reason": "goal_met",
+              "safety_violations": 0,
+              "goal_trace": [
+                0.69,
+                0.81
+              ]
+            }
+          ],
+          "aggregate": {
+            "success_at_k": 1.0,
+            "les_observed": 0.7736,
+            "les_display": 77.4,
+            "categories": {
+              "effectiveness": 0.6,
+              "speed": 1.0,
+              "cost": 0.0211,
+              "safety": 1.0,
+              "robustness": 0.8081,
+              "scalability": 1.0,
+              "adaptability": 1.0,
+              "autonomy": 0.95
+            },
+            "cost_usd_mean": 1.026,
+            "robustness_seeds": 5
+          }
+        }
+      ],
+      "composite": {
+        "les_observed": 0.7736,
+        "les_display": 77.4,
+        "rank_score": 0.7736
+      }
     }
   ]
 }
