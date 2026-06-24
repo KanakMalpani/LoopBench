@@ -7,7 +7,8 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-TASKS_ROOT = REPO_ROOT / "tasks"
+_PACKAGED_TASKS = Path(__file__).resolve().parent / "tasks"
+TASKS_ROOT = _PACKAGED_TASKS if _PACKAGED_TASKS.is_dir() else REPO_ROOT / "tasks"
 
 
 def list_tasks() -> list[str]:

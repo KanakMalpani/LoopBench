@@ -8,7 +8,8 @@ from pathlib import Path
 import jsonschema
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = REPO_ROOT / "submit" / "schema.json"
+_SCHEMA_PACKAGED = Path(__file__).resolve().parent / "submit_schema.json"
+SCHEMA_PATH = _SCHEMA_PACKAGED if _SCHEMA_PACKAGED.is_file() else REPO_ROOT / "submit" / "schema.json"
 
 
 def load_schema() -> dict:

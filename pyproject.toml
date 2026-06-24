@@ -1,6 +1,6 @@
 [project]
 name = "loopbench"
-version = "0.1.0"
+version = "0.1.1"
 description = "LoopBench — benchmark suite, metrics, submission pipeline, leaderboards"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -40,6 +40,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["loopbench"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"tasks" = "loopbench/tasks"
+"submit/schema.json" = "loopbench/submit_schema.json"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
