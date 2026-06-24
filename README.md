@@ -98,7 +98,14 @@ Five seeds per task. Details in [`tasks/`](tasks/).
 
 Post your **60-minute reproduction report** on the [reproduction challenge](https://github.com/KanakMalpani/Loop-Engineering/discussions/10) after [REPRODUCE.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/REPRODUCE.md).
 
-**Beat maintainer LES?** Start with [good-first issue #4](https://github.com/KanakMalpani/Loop-Engineering/issues/4).
+### Beat maintainer LES (good-first #4)
+
+**One command:** [BEAT_LB-CR-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md) — target LES_obs **≥ 86.7** on LB-CR-1, then PR your row here.
+
+```bash
+pip install "loopbench>=0.1.1" loopgym
+# see BEAT_LB-CR-1.md for full clone + run + submit
+```
 
 ---
 
