@@ -8,3 +8,5 @@ tasks:
     path: LB-RS-1/task.yaml
   - id: LB-MA-1
     path: LB-MA-1/task.yaml
+  - id: LB-COMP-1
+    path: LB-COMP-1/task.yaml
