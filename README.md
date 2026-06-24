@@ -109,7 +109,7 @@ loopbench run \
 loopbench validate results.json
 ```
 
-**Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
+$insert**Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
 
 v0.1 accepts **SimEnv** submissions only (fully reproducible, no API keys). LiveEnv tier: v0.2.
 
