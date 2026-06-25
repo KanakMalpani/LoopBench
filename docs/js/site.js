@@ -3,6 +3,49 @@
   "use strict";
 
   const TASK_ORDER = ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"];
+
+  const TASK_DEFS = {
+    "LB-CR-1": {
+      name: "Code repair",
+      short: "Fix broken code when tests fail (SimEnv code-repair-v1).",
+    },
+    "LB-RS-1": {
+      name: "Research synthesis",
+      short: "Synthesize structured briefs under quality/cost evaluators.",
+    },
+    "LB-MA-1": {
+      name: "Multi-agent debate",
+      short: "Coordinate multiple agents under debate-style evaluation.",
+    },
+    "LB-COMP-1": {
+      name: "Composed swarm",
+      short: "Parallel loop branches merged into one forecast (LSS composition).",
+    },
+  };
+
+  const METRIC_DEFS = {
+    les: {
+      label: "LES",
+      hint: "Loop Effectiveness Score (observed) — composite 0–100 from eight categories: effectiveness, speed, cost, safety, robustness, scalability, adaptability, autonomy.",
+    },
+    success: {
+      label: "Success@k",
+      hint: "Fraction of task instances that reached the goal threshold across all fixed seeds (higher is better).",
+    },
+    cost: {
+      label: "Cost",
+      hint: "Mean estimated USD per episode from your LSS cost limits (lower is more efficient).",
+    },
+  };
+
+  const LOGO_OPTIONS = [
+    { id: "A", file: "logo-a-loop-arrow.svg", name: "Loop arrow", desc: "Circular feedback + forward motion" },
+    { id: "B", file: "logo-b-infinity.svg", name: "Infinity loop", desc: "Continuous iteration symbol" },
+    { id: "C", file: "logo-c-monogram.svg", name: "LB monogram", desc: "Minimal wordmark in square" },
+    { id: "D", file: "logo-d-orbit.svg", name: "Orbit", desc: "Observe → act → evaluate nodes" },
+    { id: "E", file: "logo-e-wave.svg", name: "Wave stack", desc: "DeepSWE-style curves (current default)" },
+  ];
+
   let data = null;
   let activeTask = "LB-CR-1";
   let activeMetric = "les";
@@ -15,11 +58,7 @@
     "#0891b2", "#7c3aed", "#c026d3", "#ea580c", "#ca8a04",
   ];
 
-  const CHART = {
-    tick: "#71717a",
-    grid: "#e4e4e7",
-    title: "#71717a",
-  };
+  const CHART = { tick: "#71717a", grid: "#e4e4e7", title: "#71717a" };
 
   async function loadData() {
     const res = await fetch("data/leaderboard.json");
@@ -51,23 +90,73 @@
     return rows;
   }
 
-  function renderHero() {
-    const el = document.getElementById("hero-meta");
-    const total = data.entry_count || 0;
-    const updated = data.updated || "unknown";
-    el.textContent = `${TASK_ORDER.length} tasks · ${total} submissions · updated ${updated}`;
+  function renderHeroStats() {
+    document.getElementById("stat-tasks").textContent = String(TASK_ORDER.length);
+    document.getElementById("stat-subs").textContent = String(data.entry_count || 0);
+    document.getElementById("stat-updated").textContent = data.updated || "—";
+  }
+
+  function renderHints() {
+    const def = TASK_DEFS[activeTask];
+    const t = data?.tasks?.[activeTask];
+    document.getElementById("task-hint").textContent =
+      def && t
+        ? `${activeTask} — ${def.name}: ${def.short}`
+        : "";
+    document.getElementById("metric-hint").textContent = METRIC_DEFS[activeMetric]?.hint || "";
+  }
+
+  function renderGlossary() {
+    const el = document.getElementById("glossary");
+    const items = [
+      ...TASK_ORDER.map((id) => {
+        const d = TASK_DEFS[id];
+        return `<div><dt>${id}</dt><dd><strong>${d.name}</strong> — ${d.short}</dd></div>`;
+      }),
+      ...Object.entries(METRIC_DEFS).map(([, m]) =>
+        `<div><dt>${m.label}</dt><dd>${m.hint}</dd></div>`
+      ),
+      `<div><dt>Harness</dt><dd>Runtime mapping: native (LoopGym SimEnv), or bridged agents (Cursor, LangGraph, CrewAI).</dd></div>`,
+      `<div><dt>baseline / ext</dt><dd>baseline = maintainer reference row; ext = verified community submitter.</dd></div>`,
+    ];
+    el.innerHTML = items.join("");
+  }
+
+  function renderLogoPicker() {
+    const grid = document.getElementById("logo-grid");
+    grid.innerHTML = LOGO_OPTIONS.map(
+      (o) => `
+      <button type="button" class="logo-option${o.id === "E" ? " selected" : ""}" data-logo="${o.file}" data-id="${o.id}" aria-label="Logo option ${o.id}">
+        <img src="assets/logos/${o.file}" alt="" width="64" height="64" />
+        <span>Option ${o.id}</span>
+        <p>${o.name}<br>${o.desc}</p>
+      </button>`
+    ).join("");
+
+    grid.querySelectorAll(".logo-option").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        grid.querySelectorAll(".logo-option").forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        const src = "assets/logos/" + btn.dataset.logo;
+        document.getElementById("nav-logo").src = src;
+        document.getElementById("hero-logo").src = src;
+        document.querySelector(".hero-byline-icon").src = src;
+      });
+    });
   }
 
   function renderTaskTabs() {
     const wrap = document.getElementById("task-tabs");
     wrap.innerHTML = "";
     TASK_ORDER.forEach((id) => {
+      const def = TASK_DEFS[id];
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "task-tab" + (id === activeTask ? " active" : "");
-      btn.textContent = id;
       btn.setAttribute("role", "tab");
       btn.setAttribute("aria-selected", id === activeTask ? "true" : "false");
+      btn.setAttribute("title", def ? `${def.name}: ${def.short}` : id);
+      btn.innerHTML = `<span class="tab-id">${id}</span><span class="tab-name">${def?.name || id}</span>`;
       btn.addEventListener("click", () => selectTask(id));
       wrap.appendChild(btn);
     });
@@ -78,14 +167,14 @@
     wrap.innerHTML = "";
     TASK_ORDER.forEach((id) => {
       const t = data.tasks[id];
+      const def = TASK_DEFS[id];
       if (!t) return;
       const card = document.createElement("article");
       card.className = "task-card" + (id === activeTask ? " active" : "");
       card.innerHTML = `
         <div class="task-card-id">${id}</div>
-        <h3>${t.name}</h3>
-        <p>${t.tagline}</p>
-      `;
+        <h3>${def?.name || t.name}</h3>
+        <p>${t.tagline || def?.short}</p>`;
       card.addEventListener("click", () => selectTask(id));
       wrap.appendChild(card);
     });
@@ -94,9 +183,11 @@
   function selectTask(id) {
     activeTask = id;
     const t = data.tasks[id];
-    document.getElementById("task-tagline").textContent = t ? t.tagline : "";
+    const def = TASK_DEFS[id];
+    document.getElementById("task-tagline").textContent = t?.tagline || def?.short || "";
     renderTaskTabs();
     renderTaskCards();
+    renderHints();
     renderTable();
     renderChart();
   }
@@ -104,15 +195,16 @@
   function renderTable() {
     const body = document.getElementById("rank-body");
     const rows = sortedEntries();
-    body.innerHTML = rows
-      .map((row, i) => {
-        const badge = row.is_external
-          ? '<span class="badge external">ext</span>'
-          : '<span class="badge internal">baseline</span>';
-        const spec = row.spec_path
-          ? `<a class="spec-link" href="${row.spec_path}" target="_blank" rel="noopener">view</a>`
-          : "—";
-        return `<tr>
+    body.innerHTML = rows.length
+      ? rows
+          .map((row, i) => {
+            const badge = row.is_external
+              ? '<span class="badge external">ext</span>'
+              : '<span class="badge internal">baseline</span>';
+            const spec = row.spec_path
+              ? `<a class="spec-link" href="${row.spec_path}" target="_blank" rel="noopener">view</a>`
+              : "—";
+            return `<tr>
           <td class="rank-num">${i + 1}</td>
           <td><span class="loop-name">${row.loop_name}</span></td>
           <td><span class="submitter">${row.submitter}</span>${badge}</td>
@@ -122,24 +214,25 @@
           <td>${row.harness || "native"}</td>
           <td>${spec}</td>
         </tr>`;
-      })
-      .join("");
+          })
+          .join("")
+      : `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:2rem">No entries for this task yet.</td></tr>`;
+  }
+
+  function baseChartOptions() {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 12, bottom: 4, left: 4 } },
+      plugins: { legend: { display: false } },
+    };
   }
 
   function renderChart() {
     const canvas = document.getElementById("efficiency-chart");
     const rows = entriesForTask().filter((r) => r.cost_usd_mean > 0 || r.les_display > 0);
     const caption = document.getElementById("chart-caption");
-
-    const metricLabels = {
-      les: "LES (higher is better)",
-      success: "Success@k (higher is better)",
-      cost: "Avg cost USD (lower is better)",
-    };
-    caption.textContent =
-      activeMetric === "cost"
-        ? "Horizontal bars — avg cost per task (lower is more efficient)."
-        : `${metricLabels[activeMetric]} vs submitter — ${data.tasks[activeTask]?.name || activeTask}`;
+    const taskName = TASK_DEFS[activeTask]?.name || activeTask;
 
     if (chart) {
       chart.destroy();
@@ -147,6 +240,7 @@
     }
 
     if (activeMetric === "cost") {
+      caption.textContent = `Average cost per episode for ${taskName} (${activeTask}). Lower bars = more cost-efficient loops.`;
       chart = new Chart(canvas, {
         type: "bar",
         data: {
@@ -159,13 +253,30 @@
             borderWidth: 1,
           }],
         },
-        options: chartOptions(false),
+        options: {
+          ...baseChartOptions(),
+          scales: {
+            x: {
+              ticks: { color: CHART.tick, maxRotation: 45, minRotation: 0 },
+              grid: { display: false },
+              title: { display: false },
+            },
+            y: {
+              ticks: { color: CHART.tick, callback: (v) => "$" + v },
+              grid: { color: CHART.grid },
+              title: { display: true, text: "Avg cost (USD)", color: CHART.title, padding: { bottom: 4 } },
+            },
+          },
+        },
       });
       return;
     }
 
-    const yKey = activeMetric === "success" ? "success_at_k" : "les_display";
-    const yLabel = activeMetric === "success" ? "Success@k" : "LES";
+    const yLabel = activeMetric === "success" ? "Success@k (%)" : "LES";
+    caption.textContent =
+      activeMetric === "success"
+        ? `${taskName}: success rate vs avg cost. Upper-left = high success, low cost.`
+        : `${taskName}: LES vs avg cost. Upper-left = high score, low cost.`;
 
     chart = new Chart(canvas, {
       type: "scatter",
@@ -179,23 +290,33 @@
           })),
           backgroundColor: rows.map((_, i) => COLORS[i % COLORS.length] + "aa"),
           borderColor: rows.map((_, i) => COLORS[i % COLORS.length]),
-          pointRadius: 8,
-          pointHoverRadius: 10,
+          pointRadius: 7,
+          pointHoverRadius: 9,
         }],
       },
       options: {
-        ...chartOptions(true),
+        ...baseChartOptions(),
         scales: {
           x: {
             type: "logarithmic",
-            title: { display: true, text: "Avg cost (log scale)", color: CHART.title },
             ticks: { color: CHART.tick },
             grid: { color: CHART.grid },
+            title: {
+              display: true,
+              text: "Avg cost (USD, log scale)",
+              color: CHART.title,
+              padding: { top: 8 },
+            },
           },
           y: {
-            title: { display: true, text: yLabel, color: CHART.title },
             ticks: { color: CHART.tick },
             grid: { color: CHART.grid },
+            title: {
+              display: true,
+              text: yLabel,
+              color: CHART.title,
+              padding: { bottom: 4 },
+            },
           },
         },
         plugins: {
@@ -211,27 +332,6 @@
         },
       },
     });
-  }
-
-  function chartOptions(indexAxis) {
-    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      indexAxis: indexAxis ? "y" : undefined,
-      plugins: {
-        legend: { display: false },
-      },
-      scales: {
-        x: {
-          ticks: { color: CHART.tick },
-          grid: { color: CHART.grid },
-        },
-        y: {
-          ticks: { color: CHART.tick },
-          grid: { color: CHART.grid },
-        },
-      },
-    };
   }
 
   function bindSort() {
@@ -254,6 +354,7 @@
         document.querySelectorAll(".metric-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         activeMetric = btn.dataset.metric;
+        renderHints();
         renderChart();
       });
     });
@@ -262,14 +363,17 @@
   async function init() {
     try {
       data = await loadData();
-      renderHero();
+      renderHeroStats();
+      renderGlossary();
+      renderLogoPicker();
       renderTaskTabs();
       renderTaskCards();
       selectTask(activeTask);
+      renderHints();
       bindSort();
       bindMetrics();
     } catch (err) {
-      document.getElementById("hero-meta").textContent = "Could not load leaderboard data.";
+      document.getElementById("stat-subs").textContent = "error";
       console.error(err);
     }
   }

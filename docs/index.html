@@ -13,19 +13,40 @@
   <script src="js/site.js" defer></script>
 </head>
 <body>
+  <nav class="topnav" aria-label="Site">
+    <a class="nav-brand" href="./">
+      <img src="assets/logos/logo-e-wave.svg" alt="" width="22" height="22" class="nav-logo" id="nav-logo" />
+      <span>LoopBench</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md" target="_blank" rel="noopener">Playground</a>
+      <a href="#run">Run</a>
+      <a href="https://github.com/KanakMalpani/LoopBench/blob/main/SUITE-OVERVIEW.md" target="_blank" rel="noopener">Suite</a>
+      <a href="https://github.com/KanakMalpani/LoopBench" target="_blank" rel="noopener" class="nav-github">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </nav>
+
   <div class="page">
     <header class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">Loop Engineering · ALS v2</p>
-        <h1>LoopBench</h1>
-        <p class="subtitle">Fixed tasks. Fixed seeds. Observed LES. Submissions anyone can audit.</p>
-        <div class="hero-meta" id="hero-meta">Loading…</div>
-        <div class="hero-actions">
-          <a class="btn primary" href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md" target="_blank" rel="noopener">Submit your loop</a>
-          <a class="btn ghost" href="https://github.com/KanakMalpani/LoopBench" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn ghost" href="https://pypi.org/project/loopbench/" target="_blank" rel="noopener">PyPI</a>
+      <div class="hero-brand">
+        <img src="assets/logos/logo-e-wave.svg" alt="" width="72" height="72" class="hero-logo" id="hero-logo" />
+        <div>
+          <h1>LoopBench</h1>
+          <p class="hero-byline">
+            <img src="assets/logos/logo-e-wave.svg" alt="" width="16" height="16" class="hero-byline-icon" />
+            Loop Engineering
+          </p>
         </div>
       </div>
+      <dl class="hero-stats" id="hero-stats">
+        <div><dt>tasks</dt><dd id="stat-tasks">4</dd></div>
+        <div><dt>submissions</dt><dd id="stat-subs">—</dd></div>
+        <div><dt>seeds</dt><dd>5</dd></div>
+        <div><dt>updated</dt><dd id="stat-updated">—</dd></div>
+      </dl>
     </header>
 
     <main>
@@ -35,19 +56,31 @@
             <h2 id="lb-title">Leaderboard</h2>
             <p class="panel-desc" id="task-tagline">Select a task to compare loops.</p>
           </div>
-          <div class="controls">
-            <div class="task-tabs" role="tablist" id="task-tabs"></div>
-            <div class="metric-tabs" role="group" aria-label="Chart metric">
-              <button type="button" class="metric-btn active" data-metric="les">LES</button>
-              <button type="button" class="metric-btn" data-metric="success">Success@k</button>
-              <button type="button" class="metric-btn" data-metric="cost">Cost</button>
-            </div>
-          </div>
         </div>
 
-        <div class="chart-wrap">
-          <canvas id="efficiency-chart" aria-label="Loop efficiency chart"></canvas>
-          <p class="chart-caption" id="chart-caption">Avg cost per task vs LES — lower-left is more efficient.</p>
+        <div class="controls-block">
+          <div class="control-row">
+            <span class="control-label">Task</span>
+            <div class="task-tabs" role="tablist" id="task-tabs" aria-label="Benchmark task"></div>
+          </div>
+          <p class="control-hint" id="task-hint"></p>
+
+          <div class="control-row">
+            <span class="control-label">Chart by</span>
+            <div class="metric-tabs" role="group" aria-label="Chart metric">
+              <button type="button" class="metric-btn active" data-metric="les" title="Loop Effectiveness Score — observed composite 0–100 from eight categories">LES</button>
+              <button type="button" class="metric-btn" data-metric="success" title="Fraction of task instances that reached the goal threshold across seeds">Success@k</button>
+              <button type="button" class="metric-btn" data-metric="cost" title="Mean estimated USD cost per episode from the LSS cost model">Cost</button>
+            </div>
+          </div>
+          <p class="control-hint" id="metric-hint"></p>
+        </div>
+
+        <div class="chart-section">
+          <div class="chart-wrap">
+            <canvas id="efficiency-chart" aria-label="Loop efficiency chart"></canvas>
+          </div>
+          <p class="chart-caption" id="chart-caption"></p>
         </div>
 
         <div class="table-wrap">
@@ -57,16 +90,21 @@
                 <th>#</th>
                 <th>Loop</th>
                 <th>Submitter</th>
-                <th data-sort="les_display">LES ↕</th>
-                <th data-sort="success_at_k">Success@k ↕</th>
-                <th data-sort="cost_usd_mean">Cost ↕</th>
-                <th>Harness</th>
+                <th data-sort="les_display" title="Loop Effectiveness Score (observed, 0–100)">LES ↕</th>
+                <th data-sort="success_at_k" title="Share of instances passing goal threshold">Success@k ↕</th>
+                <th data-sort="cost_usd_mean" title="Mean USD per episode">Cost ↕</th>
+                <th title="Agent runtime mapping">Harness</th>
                 <th>Spec</th>
               </tr>
             </thead>
             <tbody id="rank-body"></tbody>
           </table>
         </div>
+      </section>
+
+      <section class="panel glossary-section">
+        <h2>What the names mean</h2>
+        <dl class="glossary" id="glossary"></dl>
       </section>
 
       <section class="panel about-section">
@@ -92,12 +130,18 @@
         <div class="task-cards" id="task-cards"></div>
       </section>
 
-      <section class="panel cta-section">
+      <section class="panel cta-section" id="run">
         <h2>Run your first score</h2>
         <pre class="code-block"><code>pip install "le-loop-stack>=0.1.0" loopbench loopgym
 loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json</code></pre>
         <p><a href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md">Beat LB-CR-1 guide →</a></p>
+      </section>
+
+      <section class="panel logo-picker-section" id="logos">
+        <h2>Logo options</h2>
+        <p class="panel-desc">Pick a mark for LoopBench — tell us A–E in GitHub or Discord.</p>
+        <div class="logo-grid" id="logo-grid"></div>
       </section>
     </main>
 
