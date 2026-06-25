@@ -97,22 +97,12 @@
   }
 
   function renderHints() {
-    const def = TASK_DEFS[activeTask];
-    const t = data?.tasks?.[activeTask];
-    document.getElementById("task-hint").textContent =
-      def && t
-        ? `${activeTask} — ${def.name}: ${def.short}`
-        : "";
     document.getElementById("metric-hint").textContent = METRIC_DEFS[activeMetric]?.hint || "";
   }
 
   function renderGlossary() {
     const el = document.getElementById("glossary");
     const items = [
-      ...TASK_ORDER.map((id) => {
-        const d = TASK_DEFS[id];
-        return `<div><dt>${id}</dt><dd><strong>${d.name}</strong> — ${d.short}</dd></div>`;
-      }),
       ...Object.entries(METRIC_DEFS).map(([, m]) =>
         `<div><dt>${m.label}</dt><dd>${m.hint}</dd></div>`
       ),
