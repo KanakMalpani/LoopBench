@@ -1,0 +1,50 @@
+name: Leaderboard PR hint
+
+on:
+  pull_request:
+    paths:
+      - leaderboard/entries.json
+
+permissions:
+  pull-requests: write
+
+jobs:
+  hint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## LoopBench submission checklist
+
+            Thanks for submitting a leaderboard row.
+
+            - [ ] \`loopbench validate results.json\` passes locally
+            - [ ] \`repro_command\` field matches your run (see [ROW_SCHEMA.md](leaderboard/ROW_SCHEMA.md))
+            - [ ] \`spec_path\` is a public HTTPS URL to your LSS YAML
+            - [ ] Seeds documented (default \`0,1,2,3,4\`)
+            - [ ] Started from [Loop Playground](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
+
+            **Good-first issues:** [LB-CR-1 #4](https://github.com/KanakMalpani/Loop-Engineering/issues/4) · [LB-RS-1 #5](https://github.com/KanakMalpani/Loop-Engineering/issues/5) · [LB-MA-1 #6](https://github.com/KanakMalpani/Loop-Engineering/issues/6)
+
+            Maintainer review required before merge.`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(
+              (c) =>
+                c.user.type === "Bot" &&
+                c.body.includes("LoopBench submission checklist")
+            );
+            if (botComment) {
+              return;
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
