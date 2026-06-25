@@ -11,8 +11,15 @@
   let chart = null;
 
   const COLORS = [
-    "#8b5cf6", "#60a5fa", "#34d399", "#f472b6", "#fbbf24", "#fb7185", "#a78bfa", "#2dd4bf",
+    "#18181b", "#3f3f46", "#52525b", "#2563eb", "#059669",
+    "#0891b2", "#7c3aed", "#c026d3", "#ea580c", "#ca8a04",
   ];
+
+  const CHART = {
+    tick: "#71717a",
+    grid: "#e4e4e7",
+    title: "#71717a",
+  };
 
   async function loadData() {
     const res = await fetch("data/leaderboard.json");
@@ -147,7 +154,7 @@
           datasets: [{
             label: "Avg cost",
             data: rows.map((r) => r.cost_usd_mean),
-            backgroundColor: rows.map((_, i) => COLORS[i % COLORS.length] + "99"),
+            backgroundColor: rows.map((_, i) => COLORS[i % COLORS.length] + "33"),
             borderColor: rows.map((_, i) => COLORS[i % COLORS.length]),
             borderWidth: 1,
           }],
@@ -170,7 +177,7 @@
             y: activeMetric === "success" ? r.success_at_k * 100 : r.les_display,
             label: r.loop_name,
           })),
-          backgroundColor: rows.map((_, i) => COLORS[i % COLORS.length] + "cc"),
+          backgroundColor: rows.map((_, i) => COLORS[i % COLORS.length] + "aa"),
           borderColor: rows.map((_, i) => COLORS[i % COLORS.length]),
           pointRadius: 8,
           pointHoverRadius: 10,
@@ -181,14 +188,14 @@
         scales: {
           x: {
             type: "logarithmic",
-            title: { display: true, text: "Avg cost (log scale)", color: "#8b92a8" },
-            ticks: { color: "#8b92a8" },
-            grid: { color: "rgba(255,255,255,0.06)" },
+            title: { display: true, text: "Avg cost (log scale)", color: CHART.title },
+            ticks: { color: CHART.tick },
+            grid: { color: CHART.grid },
           },
           y: {
-            title: { display: true, text: yLabel, color: "#8b92a8" },
-            ticks: { color: "#8b92a8" },
-            grid: { color: "rgba(255,255,255,0.06)" },
+            title: { display: true, text: yLabel, color: CHART.title },
+            ticks: { color: CHART.tick },
+            grid: { color: CHART.grid },
           },
         },
         plugins: {
@@ -216,12 +223,12 @@
       },
       scales: {
         x: {
-          ticks: { color: "#8b92a8" },
-          grid: { color: "rgba(255,255,255,0.06)" },
+          ticks: { color: CHART.tick },
+          grid: { color: CHART.grid },
         },
         y: {
-          ticks: { color: "#8b92a8" },
-          grid: { color: "rgba(255,255,255,0.06)" },
+          ticks: { color: CHART.tick },
+          grid: { color: CHART.grid },
         },
       },
     };
