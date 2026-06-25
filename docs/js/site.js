@@ -38,14 +38,6 @@
     },
   };
 
-  const LOGO_OPTIONS = [
-    { id: "A", file: "logo-a-loop-arrow.svg", name: "Loop arrow", desc: "Circular feedback + forward motion" },
-    { id: "B", file: "logo-b-infinity.svg", name: "Infinity loop", desc: "Continuous iteration symbol" },
-    { id: "C", file: "logo-c-monogram.svg", name: "LB monogram", desc: "Minimal wordmark in square" },
-    { id: "D", file: "logo-d-orbit.svg", name: "Orbit", desc: "Observe → act → evaluate nodes" },
-    { id: "E", file: "logo-e-wave.svg", name: "Wave stack", desc: "DeepSWE-style curves (current default)" },
-  ];
-
   let data = null;
   let activeTask = "LB-CR-1";
   let activeMetric = "les";
@@ -96,43 +88,16 @@
     document.getElementById("stat-updated").textContent = data.updated || "—";
   }
 
-  function renderHints() {
-    document.getElementById("metric-hint").textContent = METRIC_DEFS[activeMetric]?.hint || "";
-  }
-
   function renderGlossary() {
     const el = document.getElementById("glossary");
     const items = [
       ...Object.entries(METRIC_DEFS).map(([, m]) =>
         `<div><dt>${m.label}</dt><dd>${m.hint}</dd></div>`
       ),
-      `<div><dt>Harness</dt><dd>Runtime mapping: native (LoopGym SimEnv), or bridged agents (Cursor, LangGraph, CrewAI).</dd></div>`,
-      `<div><dt>baseline / ext</dt><dd>baseline = maintainer reference row; ext = verified community submitter.</dd></div>`,
+      `<div><dt>Harness</dt><dd>native (LoopGym) or bridged: Cursor, LangGraph, CrewAI.</dd></div>`,
+      `<div><dt>baseline / ext</dt><dd>Maintainer reference vs verified community submitter.</dd></div>`,
     ];
     el.innerHTML = items.join("");
-  }
-
-  function renderLogoPicker() {
-    const grid = document.getElementById("logo-grid");
-    grid.innerHTML = LOGO_OPTIONS.map(
-      (o) => `
-      <button type="button" class="logo-option${o.id === "E" ? " selected" : ""}" data-logo="${o.file}" data-id="${o.id}" aria-label="Logo option ${o.id}">
-        <img src="assets/logos/${o.file}" alt="" width="64" height="64" />
-        <span>Option ${o.id}</span>
-        <p>${o.name}<br>${o.desc}</p>
-      </button>`
-    ).join("");
-
-    grid.querySelectorAll(".logo-option").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        grid.querySelectorAll(".logo-option").forEach((b) => b.classList.remove("selected"));
-        btn.classList.add("selected");
-        const src = "assets/logos/" + btn.dataset.logo;
-        document.getElementById("nav-logo").src = src;
-        document.getElementById("hero-logo").src = src;
-        document.querySelector(".hero-byline-icon").src = src;
-      });
-    });
   }
 
   function renderTaskTabs() {
@@ -162,9 +127,11 @@
       const card = document.createElement("article");
       card.className = "task-card" + (id === activeTask ? " active" : "");
       card.innerHTML = `
-        <div class="task-card-id">${id}</div>
-        <h3>${def?.name || t.name}</h3>
-        <p>${t.tagline || def?.short}</p>`;
+        <div class="task-card-head">
+          <span class="task-card-id">${id}</span>
+          <span class="task-card-title">${def?.name || t.name}</span>
+        </div>
+        <p class="task-card-desc">${t.tagline || def?.short || ""}</p>`;
       card.addEventListener("click", () => selectTask(id));
       wrap.appendChild(card);
     });
@@ -177,7 +144,6 @@
     document.getElementById("task-tagline").textContent = t?.tagline || def?.short || "";
     renderTaskTabs();
     renderTaskCards();
-    renderHints();
     renderTable();
     renderChart();
   }
@@ -344,7 +310,6 @@
         document.querySelectorAll(".metric-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         activeMetric = btn.dataset.metric;
-        renderHints();
         renderChart();
       });
     });
@@ -355,11 +320,9 @@
       data = await loadData();
       renderHeroStats();
       renderGlossary();
-      renderLogoPicker();
       renderTaskTabs();
       renderTaskCards();
       selectTask(activeTask);
-      renderHints();
       bindSort();
       bindMetrics();
     } catch (err) {

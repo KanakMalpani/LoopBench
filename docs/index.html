@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LoopBench — Public Loop Engineering Leaderboard</title>
   <meta name="description" content="Fixed tasks. Fixed seeds. Observed LES. The public scoreboard for self-improving agent loops." />
+  <link rel="icon" href="assets/logos/loopbench-lb.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -15,7 +16,7 @@
 <body>
   <nav class="topnav" aria-label="Site">
     <a class="nav-brand" href="./">
-      <img src="assets/logos/logo-e-wave.svg" alt="" width="22" height="22" class="nav-logo" id="nav-logo" />
+      <img src="assets/logos/loopbench-lb.png" alt="" width="24" height="24" class="brand-logo" />
       <span>LoopBench</span>
     </a>
     <div class="nav-links">
@@ -32,13 +33,10 @@
   <div class="page">
     <header class="hero">
       <div class="hero-brand">
-        <img src="assets/logos/logo-e-wave.svg" alt="" width="72" height="72" class="hero-logo" id="hero-logo" />
+        <img src="assets/logos/loopbench-lb.png" alt="" width="56" height="56" class="brand-logo brand-logo-lg" />
         <div>
           <h1>LoopBench</h1>
-          <p class="hero-byline">
-            <img src="assets/logos/logo-e-wave.svg" alt="" width="16" height="16" class="hero-byline-icon" />
-            Loop Engineering
-          </p>
+          <p class="hero-byline">Loop Engineering</p>
         </div>
       </div>
       <dl class="hero-stats" id="hero-stats">
@@ -52,10 +50,8 @@
     <main>
       <section class="panel leaderboard-section" aria-labelledby="lb-title">
         <div class="panel-header">
-          <div>
-            <h2 id="lb-title">Leaderboard</h2>
-            <p class="panel-desc" id="task-tagline">Select a task to compare loops.</p>
-          </div>
+          <h2 id="lb-title">Leaderboard</h2>
+          <p class="panel-desc" id="task-tagline">Select a task to compare loops.</p>
         </div>
 
         <div class="controls-block">
@@ -63,16 +59,14 @@
             <span class="control-label">Task</span>
             <div class="task-tabs" role="tablist" id="task-tabs" aria-label="Benchmark task"></div>
           </div>
-
           <div class="control-row">
-            <span class="control-label">Chart by</span>
+            <span class="control-label">Chart</span>
             <div class="metric-tabs" role="group" aria-label="Chart metric">
-              <button type="button" class="metric-btn active" data-metric="les" title="Loop Effectiveness Score — observed composite 0–100 from eight categories">LES</button>
-              <button type="button" class="metric-btn" data-metric="success" title="Fraction of task instances that reached the goal threshold across seeds">Success@k</button>
-              <button type="button" class="metric-btn" data-metric="cost" title="Mean estimated USD cost per episode from the LSS cost model">Cost</button>
+              <button type="button" class="metric-btn active" data-metric="les" title="Loop Effectiveness Score">LES</button>
+              <button type="button" class="metric-btn" data-metric="success" title="Success@k">Success@k</button>
+              <button type="button" class="metric-btn" data-metric="cost" title="Avg cost">Cost</button>
             </div>
           </div>
-          <p class="control-hint" id="metric-hint"></p>
         </div>
 
         <div class="chart-section">
@@ -89,10 +83,10 @@
                 <th>#</th>
                 <th>Loop</th>
                 <th>Submitter</th>
-                <th data-sort="les_display" title="Loop Effectiveness Score (observed, 0–100)">LES ↕</th>
-                <th data-sort="success_at_k" title="Share of instances passing goal threshold">Success@k ↕</th>
-                <th data-sort="cost_usd_mean" title="Mean USD per episode">Cost ↕</th>
-                <th title="Agent runtime mapping">Harness</th>
+                <th data-sort="les_display" title="Loop Effectiveness Score">LES ↕</th>
+                <th data-sort="success_at_k" title="Success@k">Success@k ↕</th>
+                <th data-sort="cost_usd_mean" title="Cost">Cost ↕</th>
+                <th title="Harness">Harness</th>
                 <th>Spec</th>
               </tr>
             </thead>
@@ -101,47 +95,40 @@
         </div>
       </section>
 
-      <section class="panel glossary-section">
-        <h2>Metrics</h2>
-        <p class="panel-desc">Task names are on the tabs above. These are the column and chart metrics.</p>
-        <dl class="glossary" id="glossary"></dl>
+      <section class="panel panel-compact tasks-section">
+        <h2 class="section-title-sm">Tasks</h2>
+        <div class="task-cards" id="task-cards"></div>
       </section>
 
-      <section class="panel about-section">
-        <h2>What LoopBench measures</h2>
-        <div class="feature-grid">
+      <section class="panel panel-compact glossary-section">
+        <h2 class="section-title-sm">Metrics</h2>
+        <dl class="glossary glossary-compact" id="glossary"></dl>
+      </section>
+
+      <section class="panel panel-compact about-section">
+        <h2 class="section-title-sm">What LoopBench measures</h2>
+        <div class="feature-grid feature-grid-compact">
           <article class="feature">
             <h3>Closed loops, not prompts</h3>
-            <p>You submit an LSS YAML loop spec. LoopBench runs it through LoopGym SimEnv on fixed instances and computes Success@k and observed LES across eight categories.</p>
+            <p>LSS YAML → LoopGym SimEnv → Success@k and observed LES.</p>
           </article>
           <article class="feature">
-            <h3>Reproducible by design</h3>
-            <p>Five seeds per task. No API keys on v0.1. Every row links to a spec and a one-line <code>loopbench run</code> repro command.</p>
+            <h3>Reproducible</h3>
+            <p>Five seeds, no API keys on v0.1, auditable specs.</p>
           </article>
           <article class="feature">
-            <h3>Community-owned scoreboard</h3>
-            <p>External submitters get leaderboard credit. Maintainer baselines are labeled. Human review on every merge.</p>
+            <h3>Community scoreboard</h3>
+            <p>External rows credited; human review on merge.</p>
           </article>
         </div>
       </section>
 
-      <section class="panel tasks-section">
-        <h2>Tasks</h2>
-        <div class="task-cards" id="task-cards"></div>
-      </section>
-
-      <section class="panel cta-section" id="run">
-        <h2>Run your first score</h2>
+      <section class="panel panel-compact cta-section" id="run">
+        <h2 class="section-title-sm">Run your first score</h2>
         <pre class="code-block"><code>pip install "le-loop-stack>=0.1.0" loopbench loopgym
 loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json</code></pre>
         <p><a href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md">Beat LB-CR-1 guide →</a></p>
-      </section>
-
-      <section class="panel logo-picker-section" id="logos">
-        <h2>Logo options</h2>
-        <p class="panel-desc">Pick a mark for LoopBench — tell us A–E in GitHub or Discord.</p>
-        <div class="logo-grid" id="logo-grid"></div>
       </section>
     </main>
 
