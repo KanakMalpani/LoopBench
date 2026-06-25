@@ -96,7 +96,14 @@ Five seeds per task. Details in [`tasks/`](tasks/).
 
 <!-- LEADERBOARD:START -->
 <!-- auto-generated; do not edit -->
-**Live board** — [full rankings](leaderboard/LIVE.md) · [Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
+**Live board** (updated 2026-06-24) — [full rankings](leaderboard/LIVE.md)
+
+- **LB-CR-1:** Loop Engineering maintainer — LES **86.7**
+- **LB-RS-1:** Loop Engineering maintainer (RS-1) — LES **81.9**
+- **LB-MA-1:** Loop Engineering maintainer (MA-1) — LES **86.5**
+- **LB-COMP-1:** Loop Engineering maintainer (COMP-1) — LES **80.3**
+
+[Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
 <!-- LEADERBOARD:END -->
 
 ---
