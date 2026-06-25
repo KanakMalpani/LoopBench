@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
@@ -26,6 +27,33 @@ INTERNAL_SUBMITTER_MARKERS = (
 )
 
 KNOWN_TASKS = ("LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1")
+
+TASK_META: dict[str, dict[str, str | int]] = {
+    "LB-CR-1": {
+        "name": "Code repair",
+        "tagline": "Fix broken code under test-suite verify pressure.",
+        "language": "SimEnv",
+        "seeds": 5,
+    },
+    "LB-RS-1": {
+        "name": "Research synthesis",
+        "tagline": "Structured briefs — quality vs cost under evaluator scrutiny.",
+        "language": "SimEnv",
+        "seeds": 5,
+    },
+    "LB-MA-1": {
+        "name": "Multi-agent debate",
+        "tagline": "Autonomy and coordination under multi-evaluator pressure.",
+        "language": "SimEnv",
+        "seeds": 5,
+    },
+    "LB-COMP-1": {
+        "name": "Composed swarm",
+        "tagline": "Parallel branches + merge — MiroFish-style LSS composition.",
+        "language": "SimEnv",
+        "seeds": 5,
+    },
+}
 
 
 @dataclass
@@ -141,6 +169,7 @@ def render_task_table(task_id: str, rows: list[TaskRow], *, show_internal: bool 
     )
     for i, row in enumerate(rows, 1):
         spec_link = row.spec_path if row.spec_path.startswith("http") else f"`{row.spec_path}`"
+        tag = "" if row.is_external or show_internal else ""
         submitter = row.submitter + (" *" if row.is_external else "")
         lines.append(
             f"| {i} | {submitter} | {row.les_display:.1f} | {row.success_at_k:.2f} | {spec_link} |"
@@ -179,6 +208,7 @@ def render_live_markdown(
 
 
 def render_readme_block(board: dict[str, Any], *, top_n: int = 5) -> str:
+    """Compact block for README between LEADERBOARD markers."""
     rows = flatten_entries(board)
     ranked = rank_by_task(rows, top_n=top_n, external_only=False)
     updated = board.get("updated", "unknown")
@@ -200,6 +230,57 @@ def render_readme_block(board: dict[str, Any], *, top_n: int = 5) -> str:
     lines.append("")
     lines.append("[Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)")
     return "\n".join(lines)
+
+
+def _loop_name_from_entry(row: TaskRow) -> str:
+    return _loop_name_from_spec(row.spec_path)
+
+
+def export_site_json(board: dict[str, Any], *, top_n: int = 20) -> dict[str, Any]:
+    rows = flatten_entries(board)
+    ranked = rank_by_task(rows, top_n=top_n, external_only=False)
+    tasks_out: dict[str, Any] = {}
+    for task_id in KNOWN_TASKS:
+        meta = TASK_META.get(task_id, {})
+        entries = []
+        for rank, row in enumerate(ranked.get(task_id, []), 1):
+            cost = 0.0
+            for entry in board.get("entries") or []:
+                if str(entry.get("submitter")) != row.submitter:
+                    continue
+                for result in entry.get("results") or []:
+                    if result.get("task_id") == task_id:
+                        cost = float((result.get("aggregate") or {}).get("cost_usd_mean") or 0)
+                        break
+            entries.append(
+                {
+                    "rank": rank,
+                    "submitter": row.submitter,
+                    "loop_name": _loop_name_from_entry(row),
+                    "les_observed": round(row.les_observed, 4),
+                    "les_display": round(row.les_display, 1),
+                    "success_at_k": round(row.success_at_k, 3),
+                    "cost_usd_mean": round(cost, 4),
+                    "spec_path": row.spec_path,
+                    "repro_command": row.repro_command,
+                    "harness": row.harness,
+                    "is_external": row.is_external,
+                    "submission_id": row.submission_id,
+                }
+            )
+        tasks_out[task_id] = {
+            "id": task_id,
+            "name": meta.get("name", task_id),
+            "tagline": meta.get("tagline", ""),
+            "seeds": meta.get("seeds", 5),
+            "entries": entries,
+        }
+    return {
+        "version": board.get("version", "0.1.0"),
+        "updated": board.get("updated", "unknown"),
+        "entry_count": len(board.get("entries") or []),
+        "tasks": tasks_out,
+    }
 
 
 def inject_readme_markers(readme_text: str, block: str) -> str:

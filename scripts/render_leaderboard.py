@@ -8,7 +8,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import json
+
 from leaderboard_common import (
+    export_site_json,
     inject_readme_markers,
     load_entries_from_file,
     render_live_markdown,
@@ -32,6 +35,12 @@ def main() -> int:
     )
     parser.add_argument("--readme", type=Path, help="Update README markers in place")
     parser.add_argument("--top-n", type=int, default=10)
+    parser.add_argument(
+        "--site-out",
+        type=Path,
+        default=ROOT / "docs" / "data" / "leaderboard.json",
+        help="GitHub Pages JSON snapshot",
+    )
     args = parser.parse_args()
 
     board = load_entries_from_file(args.entries)
@@ -45,6 +54,11 @@ def main() -> int:
         text = args.readme.read_text(encoding="utf-8")
         args.readme.write_text(inject_readme_markers(text, block), encoding="utf-8")
         print(f"Updated {args.readme}")
+
+    site = export_site_json(board, top_n=max(args.top_n, 20))
+    args.site_out.parent.mkdir(parents=True, exist_ok=True)
+    args.site_out.write_text(json.dumps(site, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {args.site_out}")
 
     return 0
 

@@ -26,13 +26,15 @@ jobs:
           python scripts/render_leaderboard.py \
             --entries leaderboard/entries.json \
             --live-out leaderboard/LIVE.md \
-            --readme README.md
+            --readme README.md \
+            --site-out docs/data/leaderboard.json \
+            --top-n 20
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add leaderboard/LIVE.md README.md
+          git add leaderboard/LIVE.md README.md docs/data/leaderboard.json
           if git diff --staged --quiet; then
             echo "No leaderboard render changes"
           else

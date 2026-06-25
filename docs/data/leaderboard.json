@@ -1,0 +1,123 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-06-24",
+  "entry_count": 6,
+  "tasks": {
+    "LB-CR-1": {
+      "id": "LB-CR-1",
+      "name": "Code repair",
+      "tagline": "Fix broken code under test-suite verify pressure.",
+      "seeds": 5,
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer",
+          "loop_name": "autonomous-debugger",
+          "les_observed": 0.8671,
+          "les_display": 86.7,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.3987,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
+          "repro_command": "loopbench run --task LB-CR-1 --spec autonomous-debugger.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "3b1db2f4-86f2-4fba-af9b-cdbd40091b42"
+        },
+        {
+          "rank": 2,
+          "submitter": "Team Thorough",
+          "loop_name": "spec-thorough-loop",
+          "les_observed": 0.8642,
+          "les_display": 86.4,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.32,
+          "spec_path": "submissions/examples/spec-thorough-loop.yaml",
+          "repro_command": "loopbench run --task LB-CR-1 --spec submissions/examples/spec-thorough-loop.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "8d844734-e560-4f83-bbf9-19edede3fa67"
+        },
+        {
+          "rank": 3,
+          "submitter": "Team Fast",
+          "loop_name": "spec-fast-loop",
+          "les_observed": 0.8058,
+          "les_display": 80.6,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.14,
+          "spec_path": "submissions/examples/spec-fast-loop.yaml",
+          "repro_command": "loopbench run --task LB-CR-1 --spec submissions/examples/spec-fast-loop.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "9836a8e9-e234-4a93-91c5-0f2c99344531"
+        }
+      ]
+    },
+    "LB-RS-1": {
+      "id": "LB-RS-1",
+      "name": "Research synthesis",
+      "tagline": "Structured briefs \u2014 quality vs cost under evaluator scrutiny.",
+      "seeds": 5,
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (RS-1)",
+          "loop_name": "research-agent",
+          "les_observed": 0.8191,
+          "les_display": 81.9,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.45,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
+          "repro_command": "loopbench run --task LB-RS-1 --spec research-agent.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "23817c7a-416c-4d97-917b-bd4f9dd32b58"
+        }
+      ]
+    },
+    "LB-MA-1": {
+      "id": "LB-MA-1",
+      "name": "Multi-agent debate",
+      "tagline": "Autonomy and coordination under multi-evaluator pressure.",
+      "seeds": 5,
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (MA-1)",
+          "loop_name": "coding-agent",
+          "les_observed": 0.8645,
+          "les_display": 86.5,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.672,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/coding-agent.yaml",
+          "repro_command": "loopbench run --task LB-MA-1 --spec coding-agent.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "00dda7ed-e239-492e-b223-1d67079ee640"
+        }
+      ]
+    },
+    "LB-COMP-1": {
+      "id": "LB-COMP-1",
+      "name": "Composed swarm",
+      "tagline": "Parallel branches + merge \u2014 MiroFish-style LSS composition.",
+      "seeds": 5,
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (COMP-1)",
+          "loop_name": "scenario-swarm-rehearsal",
+          "les_observed": 0.8028,
+          "les_display": 80.3,
+          "success_at_k": 1.0,
+          "cost_usd_mean": 0.722,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/scenario-swarm-rehearsal.yaml",
+          "repro_command": "loopbench run --task LB-COMP-1 --spec scenario-swarm-rehearsal.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": "054b0b09-139d-46f4-b4c4-9b03dc20fe66"
+        }
+      ]
+    }
+  }
+}

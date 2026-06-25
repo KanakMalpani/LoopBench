@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LoopBench — Public Loop Engineering Leaderboard</title>
+  <meta name="description" content="Fixed tasks. Fixed seeds. Observed LES. The public scoreboard for self-improving agent loops." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="js/site.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Loop Engineering · ALS v2</p>
+        <h1>LoopBench</h1>
+        <p class="subtitle">Fixed tasks. Fixed seeds. Observed LES. Submissions anyone can audit.</p>
+        <div class="hero-meta" id="hero-meta">Loading…</div>
+        <div class="hero-actions">
+          <a class="btn primary" href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md" target="_blank" rel="noopener">Submit your loop</a>
+          <a class="btn ghost" href="https://github.com/KanakMalpani/LoopBench" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn ghost" href="https://pypi.org/project/loopbench/" target="_blank" rel="noopener">PyPI</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel leaderboard-section" aria-labelledby="lb-title">
+        <div class="panel-header">
+          <div>
+            <h2 id="lb-title">Leaderboard</h2>
+            <p class="panel-desc" id="task-tagline">Select a task to compare loops.</p>
+          </div>
+          <div class="controls">
+            <div class="task-tabs" role="tablist" id="task-tabs"></div>
+            <div class="metric-tabs" role="group" aria-label="Chart metric">
+              <button type="button" class="metric-btn active" data-metric="les">LES</button>
+              <button type="button" class="metric-btn" data-metric="success">Success@k</button>
+              <button type="button" class="metric-btn" data-metric="cost">Cost</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="efficiency-chart" aria-label="Loop efficiency chart"></canvas>
+          <p class="chart-caption" id="chart-caption">Avg cost per task vs LES — lower-left is more efficient.</p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Loop</th>
+                <th>Submitter</th>
+                <th data-sort="les_display">LES ↕</th>
+                <th data-sort="success_at_k">Success@k ↕</th>
+                <th data-sort="cost_usd_mean">Cost ↕</th>
+                <th>Harness</th>
+                <th>Spec</th>
+              </tr>
+            </thead>
+            <tbody id="rank-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel about-section">
+        <h2>What LoopBench measures</h2>
+        <div class="feature-grid">
+          <article class="feature">
+            <h3>Closed loops, not prompts</h3>
+            <p>You submit an LSS YAML loop spec. LoopBench runs it through LoopGym SimEnv on fixed instances and computes Success@k and observed LES across eight categories.</p>
+          </article>
+          <article class="feature">
+            <h3>Reproducible by design</h3>
+            <p>Five seeds per task. No API keys on v0.1. Every row links to a spec and a one-line <code>loopbench run</code> repro command.</p>
+          </article>
+          <article class="feature">
+            <h3>Community-owned scoreboard</h3>
+            <p>External submitters get leaderboard credit. Maintainer baselines are labeled. Human review on every merge.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel tasks-section">
+        <h2>Tasks</h2>
+        <div class="task-cards" id="task-cards"></div>
+      </section>
+
+      <section class="panel cta-section">
+        <h2>Run your first score</h2>
+        <pre class="code-block"><code>pip install "le-loop-stack>=0.1.0" loopbench loopgym
+loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+loopbench validate results.json</code></pre>
+        <p><a href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md">Beat LB-CR-1 guide →</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>MIT · <a href="https://github.com/KanakMalpani/LoopBench">LoopBench</a> · <a href="https://github.com/KanakMalpani/Loop-Engineering">Loop Engineering</a></p>
+    </footer>
+  </div>
+</body>
+</html>
