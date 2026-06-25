@@ -25,7 +25,7 @@ loopbench list
 
 <br>
 
-[**Run your first score**](#score-in-2-minutes) · [**Loop Playground**](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md) · [**Leaderboard**](leaderboard/LIVE.md) · [**Suite overview**](SUITE-OVERVIEW.md)
+[**Run your first score**](#score-in-2-minutes) · [**Live leaderboard**](https://kanakmalpani.github.io/LoopBench/) · [**Loop Playground**](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md) · [**Leaderboard JSON**](leaderboard/entries.json) · [**Suite overview**](SUITE-OVERVIEW.md)
 
 <br>
 
@@ -96,14 +96,7 @@ Five seeds per task. Details in [`tasks/`](tasks/).
 
 <!-- LEADERBOARD:START -->
 <!-- auto-generated; do not edit -->
-**Live board** (updated 2026-06-24) — [full rankings](leaderboard/LIVE.md)
-
-- **LB-CR-1:** Loop Engineering maintainer — LES **86.7**
-- **LB-RS-1:** Loop Engineering maintainer (RS-1) — LES **81.9**
-- **LB-MA-1:** Loop Engineering maintainer (MA-1) — LES **86.5**
-- **LB-COMP-1:** Loop Engineering maintainer (COMP-1) — LES **80.3**
-
-[Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
+**Live board** — [full rankings](leaderboard/LIVE.md) · [Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
 <!-- LEADERBOARD:END -->
 
 ---
