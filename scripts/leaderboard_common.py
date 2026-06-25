@@ -199,7 +199,7 @@ def render_live_markdown(
         "",
         generated_note,
         "",
-        "Rankings use **LES_obs** (aggregate) per task. Top 10 per task.",
+        f"Rankings use **LES_obs** (aggregate) per task. Top {top_n} per task.",
         "",
     ]
     for task_id in KNOWN_TASKS:

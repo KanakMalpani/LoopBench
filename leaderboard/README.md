@@ -5,7 +5,7 @@ Public rankings from [`entries.json`](./entries.json).
 | File | Purpose |
 |------|---------|
 | [`entries.json`](./entries.json) | Canonical submission data (PR to add rows) |
-| [`LIVE.md`](./LIVE.md) | Auto-generated top 10 per task (do not edit) |
+| [`LIVE.md`](./LIVE.md) | Auto-generated top 20 per task (do not edit) |
 | [`ROW_SCHEMA.md`](./ROW_SCHEMA.md) | Required fields for new submissions |
 
 ---

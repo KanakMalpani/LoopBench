@@ -1,0 +1,46 @@
+name: Validate entries
+
+on:
+  pull_request:
+    paths:
+      - leaderboard/entries.json
+  push:
+    branches: [main]
+    paths:
+      - leaderboard/entries.json
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate entries.json schema and render
+        run: |
+          python -c "
+          import json
+          from pathlib import Path
+          import sys
+          sys.path.insert(0, 'scripts')
+          from leaderboard_common import load_entries_from_file, flatten_entries, rank_by_task
+
+          path = Path('leaderboard/entries.json')
+          board = load_entries_from_file(path)
+          assert 'updated' in board, 'missing updated field'
+          rows = flatten_entries(board)
+          assert rows, 'no entries parsed'
+          ranked = rank_by_task(rows, top_n=20)
+          print(f'OK: {len(rows)} rows across {len(ranked)} tasks')
+          "
+
+      - name: Dry-run render
+        run: |
+          python scripts/render_leaderboard.py \
+            --entries leaderboard/entries.json \
+            --live-out /tmp/LIVE.md \
+            --site-out /tmp/leaderboard.json \
+            --top-n 20

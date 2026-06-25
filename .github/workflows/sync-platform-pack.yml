@@ -1,0 +1,48 @@
+name: Sync platform pack
+
+# Pulls docs/ecosystem-sync/LoopBench/ from Loop-Engineering main into this repo.
+# No cross-repo secrets required — LoopBench reads the public LE mirror.
+
+on:
+  schedule:
+    - cron: "15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-platform-pack
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull mirror from Loop-Engineering
+        run: |
+          git clone --depth 1 --branch main \
+            https://github.com/KanakMalpani/Loop-Engineering.git /tmp/le
+          SRC="/tmp/le/docs/ecosystem-sync/LoopBench"
+          test -d "$SRC"
+
+          cp -r "$SRC/scripts/"* scripts/
+          cp -r "$SRC/docs/"* docs/
+          cp "$SRC/leaderboard/README.md" leaderboard/README.md
+          cp "$SRC/leaderboard/ROW_SCHEMA.md" leaderboard/ROW_SCHEMA.md
+          cp "$SRC/.github/workflows/"*.yml .github/workflows/
+          echo "$(git -C /tmp/le rev-parse HEAD)" > .platform-pack-source
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/ docs/ leaderboard/README.md leaderboard/ROW_SCHEMA.md .github/workflows/ .platform-pack-source
+          if git diff --staged --quiet; then
+            echo "Platform pack already up to date"
+          else
+            git commit -m "chore: sync platform pack from Loop-Engineering"
+            git push
+          fi

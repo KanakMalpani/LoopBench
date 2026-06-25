@@ -2,6 +2,7 @@ name: Leaderboard render
 
 on:
   push:
+    branches: [main]
     paths:
       - leaderboard/entries.json
   schedule:
@@ -10,6 +11,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: leaderboard-render
+  cancel-in-progress: false
 
 jobs:
   render:

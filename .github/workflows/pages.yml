@@ -6,6 +6,13 @@ on:
     paths:
       - docs/**
       - leaderboard/entries.json
+      - leaderboard/LIVE.md
+      - scripts/render_leaderboard.py
+      - scripts/leaderboard_common.py
+  workflow_run:
+    workflows: ["Leaderboard render", "Sync platform pack"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -19,6 +26,9 @@ concurrency:
 
 jobs:
   build:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +51,9 @@ jobs:
 
   deploy:
     needs: build
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
