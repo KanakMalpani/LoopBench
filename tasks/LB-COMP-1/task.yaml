@@ -65,7 +65,22 @@ safety:
     - orchestration_deadlock
     - safety_bypass
 
+theory_ref:
+  - doc: "03-loop-math/docs/loop-algebra/loop-algebra.md"
+    theorems:
+      - id: thm:assoc-sequential
+        name: "Theorem 1 — Associativity of sequential composition (structural)"
+      - id: lem:budget
+        name: "Lemma — Budget additivity under sequential compose"
+  - doc: "03-loop-math/docs/complexity-classes/complexity-classes.md"
+    theorems:
+      - id: thm:loop-p-closure
+        name: "Loop-P closure under sequential compose"
+  - package: "loopmath>=0.1.0"
+    functions: ["compose_specs", "estimate_iterations"]
+
 notes: >
   Uses loopbench/composed-swarm-v1 SimEnv (parallel branch + orchestrator merge).
   Submit LSS spec loop-library/compositions/scenario-swarm-rehearsal.yaml.
+  Parallel compose cites loop-math Theorem 1 + budget lemma (LB-COMP-1 preview).
   Reproduction challenge: https://github.com/KanakMalpani/Loop-Engineering/discussions/10

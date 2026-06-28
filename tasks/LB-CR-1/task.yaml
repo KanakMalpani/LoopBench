@@ -71,3 +71,15 @@ anti_gaming:
   - hidden_tests_v0_2
   - diff_cap_lines: 150
   - monitor_test_file_writes: true
+
+theory_ref:
+  - doc: "03-loop-math/docs/loop-algebra/loop-algebra.md"
+    theorems:
+      - id: thm:assoc-sequential
+        name: "Theorem 1 — Associativity of sequential composition (structural)"
+      - id: thm:budget-termination
+        name: "Theorem 2 — Budget termination"
+      - id: lem:budget
+        name: "Lemma — Budget additivity under sequential compose"
+  - package: "loopmath>=0.1.0"
+    functions: ["compose_specs", "estimate_iterations"]
