@@ -4,7 +4,7 @@ _Updated: 2026-06-24_
 
 Auto-generated from `leaderboard/entries.json`. Do not edit manually.
 
-Rankings use **LES_obs** (aggregate) per task. Top 10 per task.
+Rankings use **LES_obs** (aggregate) per task. Top 20 per task.
 
 ### LB-CR-1
 
