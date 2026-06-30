@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="assets/ponytail-banner.png" alt="Ponytail Banner" width="100%" style="border-radius: 12px; margin-bottom: 20px;" />
-
 # LoopBench
 
 **The public scoreboard for loop engineering.**
@@ -52,22 +50,20 @@ loopbench rank leaderboard/entries.json --suite suite-repair
 
 ---
 
-## 📊 The "Ponytail" Efficiency Dividend
+## Suite coverage
 
-By structuring your systems into formal closed loops with **LoopForge** and **LoopGym**, and applying optimal "ponytail" style compiler compression, you shed token bloat, latency, and costs while remaining 100% safe.
+One LSS spec → four suite scores → one **generalist** rank on the public leaderboard.
 
 <div align="center">
-  <img src="assets/benchmark-graph.png" alt="Loop Engineering Performance Metrics" width="90%" style="border-radius: 8px; margin-bottom: 10px;" />
-  <p><i>Every metric vs the no-skill baseline (Claude Code, Haiku 4.5, 12 tasks)</i></p>
+  <img src="assets/suite-coverage.svg" alt="LoopBench suite and task coverage" width="92%" />
 </div>
 
-### Metrics vs. No-Skill Baseline
-
-| Strategy | Lines of Code (LOC) | Token Usage | API Cost | Latency (Time) | Safety |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **ponytail** (Optimal Loop) | **-54%** | **-22%** | **-20%** | **-27%** | **100%** |
-| **caveman** (Terse Prose) | -20% | +7% | +3% | +2% | 100% |
-| **YAGNI + One-Liners** | -33% | -14% | -21% | -30% | 95% |
+| Suite | Tasks | Stress area |
+| :--- | ---: | :--- |
+| `suite-repair` | 5 | verify-driven repair + safety |
+| `suite-agent` | 5 | multi-agent coordination |
+| `suite-knowledge` | 4 | research + RAG |
+| `suite-rigor` | 5 | composition + HITL + memory |
 
 ---
 

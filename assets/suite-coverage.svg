@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" role="img" aria-label="LoopBench suite coverage">
+  <rect width="880" height="400" rx="14" fill="#111113"/>
+  <text x="32" y="38" fill="#f4f4f5" font-family="ui-monospace, monospace" font-size="15" font-weight="700">19 micro-tasks · 4 suites · one generalist rank</text>
+  <text x="32" y="58" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="11">fixed seeds · LES_obs scoring · SimEnv reproducible submissions</text>
+
+  <!-- suite bars: repair=5, agent=5, knowledge=4, rigor=5 -->
+  <text x="32" y="95" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="10">tasks per suite</text>
+
+  <text x="120" y="118" fill="#71717a" font-family="ui-monospace, monospace" font-size="10">suite-repair</text>
+  <rect x="120" y="128" width="380" height="28" rx="6" fill="#f97316"/>
+  <text x="848" y="147" fill="#fdba74" font-family="ui-monospace, monospace" font-size="11" text-anchor="end">5 tasks · CR · REACT · REFLEX · OPT · SAFE</text>
+
+  <text x="120" y="178" fill="#71717a" font-family="ui-monospace, monospace" font-size="10">suite-agent</text>
+  <rect x="120" y="188" width="380" height="28" rx="6" fill="#22c55e"/>
+  <text x="848" y="207" fill="#86efac" font-family="ui-monospace, monospace" font-size="11" text-anchor="end">5 tasks · MA · CREW · GRAPH · TOT · VOTE</text>
+
+  <text x="120" y="238" fill="#71717a" font-family="ui-monospace, monospace" font-size="10">suite-knowledge</text>
+  <rect x="120" y="248" width="304" height="28" rx="6" fill="#38bdf8"/>
+  <text x="848" y="267" fill="#7dd3fc" font-family="ui-monospace, monospace" font-size="11" text-anchor="end">4 tasks · RS · RAG · BOOT · AUTO</text>
+
+  <text x="120" y="298" fill="#71717a" font-family="ui-monospace, monospace" font-size="10">suite-rigor</text>
+  <rect x="120" y="308" width="380" height="28" rx="6" fill="#a855f7"/>
+  <text x="848" y="327" fill="#d8b4fe" font-family="ui-monospace, monospace" font-size="11" text-anchor="end">5 tasks · COMP · NEST · SIM · HITL · MEM</text>
+
+  <rect x="32" y="352" width="816" height="36" rx="8" fill="#27272a"/>
+  <text x="44" y="374" fill="#e4e4e7" font-family="ui-monospace, monospace" font-size="11">Grand composite = mean of 4 suite scores · submit via leaderboard/entries.json PR</text>
+</svg>
