@@ -55,7 +55,7 @@ loopbench rank leaderboard/entries.json --suite suite-repair
 One LSS spec → four suite scores → one **generalist** rank on the public leaderboard.
 
 <div align="center">
-  <img src="assets/suite-coverage.svg" alt="LoopBench suite and task coverage" width="92%" />
+  <img src="assets/suite-coverage.png" alt="LoopBench suite and task coverage" width="92%" />
 </div>
 
 | Suite | Tasks | Stress area |
