@@ -114,6 +114,7 @@ Full catalog in [`tasks/index.yaml`](tasks/index.yaml) and [`SUITE-OVERVIEW.md`]
 - Team Thorough — LES **86.4**
 
 [Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
+
 <!-- LEADERBOARD:END -->
 
 ---
