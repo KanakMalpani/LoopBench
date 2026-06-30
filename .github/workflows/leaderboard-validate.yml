@@ -17,25 +17,13 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
-      - name: Validate entries.json schema and render
-        run: |
-          python -c "
-          import json
-          from pathlib import Path
-          import sys
-          sys.path.insert(0, 'scripts')
-          from leaderboard_common import load_entries_from_file, flatten_entries, rank_by_task
+      - name: Install loopbench
+        run: pip install -e ".[dev]"
 
-          path = Path('leaderboard/entries.json')
-          board = load_entries_from_file(path)
-          assert 'updated' in board, 'missing updated field'
-          rows = flatten_entries(board)
-          assert rows, 'no entries parsed'
-          ranked = rank_by_task(rows, top_n=20)
-          print(f'OK: {len(rows)} rows across {len(ranked)} tasks')
-          "
+      - name: Validate leaderboard entries
+        run: loopbench validate leaderboard/entries.json
 
       - name: Dry-run render
         run: |

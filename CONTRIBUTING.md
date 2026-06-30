@@ -3,6 +3,7 @@
 ## What belongs here
 
 - Benchmark task definitions (ALS v2 YAML)
+- Comparison suite registry (`tasks/suites/`)
 - Observed LES computation and submission schema
 - CLI, conformance validation, leaderboard entries
 - Golden submission tests
@@ -24,9 +25,26 @@ loopbench validate leaderboard/entries.json
 
 ## Submitting benchmark results
 
-1. Run all tasks: `loopbench run --task LB-CR-1,LB-RS-1,LB-MA-1 --spec your-loop.yaml -o results.json`
-2. Validate: `loopbench validate results.json`
-3. Open a PR adding your entry to `leaderboard/entries.json`
+Run a full suite (recommended for generalist rank):
+
+```bash
+loopbench run --suite suite-repair --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+loopbench validate results.json
+```
+
+Other suites: `suite-agent`, `suite-knowledge`, `suite-rigor`. For a single micro-task:
+
+```bash
+loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+```
+
+Include a `repro_command` in your leaderboard entry when possible:
+
+```json
+"repro_command": "loopbench run --suite suite-repair --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json"
+```
+
+Open a PR adding your entry to `leaderboard/entries.json`. Entries with all four `suite_scores` qualify for **generalist** rank.
 
 ## License
 

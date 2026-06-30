@@ -1,0 +1,54 @@
+# LoopBench comparison suites (Wave 15)
+version: "0.2.0"
+suites:
+  - id: suite-repair
+    label: Repair & Verify
+    description: Code, tool, reflexion, and DSPy-style repair loops
+    primary_les_stress:
+      - effectiveness
+      - robustness
+      - speed
+    task_ids:
+      - LB-CR-1
+      - LB-REACT-1
+      - LB-REFLEX-1
+      - LB-OPT-1
+      - LB-SAFE-1
+  - id: suite-agent
+    label: Multi-Agent
+    description: Crews, graphs, debate, tree-search, and voting loops
+    primary_les_stress:
+      - autonomy
+      - scalability
+      - effectiveness
+    task_ids:
+      - LB-MA-1
+      - LB-CREW-1
+      - LB-GRAPH-1
+      - LB-TOT-1
+      - LB-VOTE-1
+  - id: suite-knowledge
+    label: Research & RAG
+    description: Synthesis, retrieval, bootstrap, and long-horizon autonomy
+    primary_les_stress:
+      - effectiveness
+      - cost
+      - adaptability
+    task_ids:
+      - LB-RS-1
+      - LB-RAG-1
+      - LB-BOOT-1
+      - LB-AUTO-1
+  - id: suite-rigor
+    label: Composition & Safety
+    description: Parallel compose, nested repair, simulation, HITL, memory
+    primary_les_stress:
+      - scalability
+      - safety
+      - autonomy
+    task_ids:
+      - LB-COMP-1
+      - LB-NEST-1
+      - LB-SIM-1
+      - LB-HITL-1
+      - LB-MEM-1

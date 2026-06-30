@@ -1,7 +1,85 @@
 {
-  "version": "0.1.0",
-  "updated": "2026-06-24",
+  "version": "0.2.0",
+  "updated": "2026-06-25",
   "entry_count": 6,
+  "generalist": [
+    {
+      "rank": 1,
+      "submitter": "Loop Engineering maintainer",
+      "les_observed": 0.8671,
+      "les_display": 86.7,
+      "primary_suite": null,
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 2,
+      "submitter": "Loop Engineering maintainer (MA-1)",
+      "les_observed": 0.8645,
+      "les_display": 86.5,
+      "primary_suite": null,
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/coding-agent.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 3,
+      "submitter": "Team Thorough",
+      "les_observed": 0.8642,
+      "les_display": 86.4,
+      "primary_suite": null,
+      "spec_path": "submissions/examples/spec-thorough-loop.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 4,
+      "submitter": "Loop Engineering maintainer (RS-1)",
+      "les_observed": 0.8191,
+      "les_display": 81.9,
+      "primary_suite": null,
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 5,
+      "submitter": "Team Fast",
+      "les_observed": 0.8058,
+      "les_display": 80.6,
+      "primary_suite": null,
+      "spec_path": "submissions/examples/spec-fast-loop.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 6,
+      "submitter": "Loop Engineering maintainer (COMP-1)",
+      "les_observed": 0.8028,
+      "les_display": 80.3,
+      "primary_suite": null,
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/scenario-swarm-rehearsal.yaml",
+      "is_external": false
+    }
+  ],
+  "suites": {
+    "suite-repair": {
+      "id": "suite-repair",
+      "label": "Repair & Verify",
+      "entries": []
+    },
+    "suite-agent": {
+      "id": "suite-agent",
+      "label": "Multi-Agent",
+      "entries": []
+    },
+    "suite-knowledge": {
+      "id": "suite-knowledge",
+      "label": "Research & RAG",
+      "entries": []
+    },
+    "suite-rigor": {
+      "id": "suite-rigor",
+      "label": "Composition & Safety",
+      "entries": []
+    }
+  },
   "tasks": {
     "LB-CR-1": {
       "id": "LB-CR-1",
@@ -16,7 +94,6 @@
           "les_observed": 0.8671,
           "les_display": 86.7,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.3987,
           "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
           "repro_command": "loopbench run --task LB-CR-1 --spec autonomous-debugger.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -30,7 +107,6 @@
           "les_observed": 0.8642,
           "les_display": 86.4,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.32,
           "spec_path": "submissions/examples/spec-thorough-loop.yaml",
           "repro_command": "loopbench run --task LB-CR-1 --spec submissions/examples/spec-thorough-loop.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -44,7 +120,6 @@
           "les_observed": 0.8058,
           "les_display": 80.6,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.14,
           "spec_path": "submissions/examples/spec-fast-loop.yaml",
           "repro_command": "loopbench run --task LB-CR-1 --spec submissions/examples/spec-fast-loop.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -56,7 +131,7 @@
     "LB-RS-1": {
       "id": "LB-RS-1",
       "name": "Research synthesis",
-      "tagline": "Structured briefs \u2014 quality vs cost under evaluator scrutiny.",
+      "tagline": "Structured briefs \u2014 quality vs cost.",
       "seeds": 5,
       "entries": [
         {
@@ -66,7 +141,6 @@
           "les_observed": 0.8191,
           "les_display": 81.9,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.45,
           "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
           "repro_command": "loopbench run --task LB-RS-1 --spec research-agent.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -78,7 +152,7 @@
     "LB-MA-1": {
       "id": "LB-MA-1",
       "name": "Multi-agent debate",
-      "tagline": "Autonomy and coordination under multi-evaluator pressure.",
+      "tagline": "Autonomy and coordination under pressure.",
       "seeds": 5,
       "entries": [
         {
@@ -88,7 +162,6 @@
           "les_observed": 0.8645,
           "les_display": 86.5,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.672,
           "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/coding-agent.yaml",
           "repro_command": "loopbench run --task LB-MA-1 --spec coding-agent.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -100,7 +173,7 @@
     "LB-COMP-1": {
       "id": "LB-COMP-1",
       "name": "Composed swarm",
-      "tagline": "Parallel branches + merge \u2014 MiroFish-style LSS composition.",
+      "tagline": "Parallel branches + merge.",
       "seeds": 5,
       "entries": [
         {
@@ -110,7 +183,6 @@
           "les_observed": 0.8028,
           "les_display": 80.3,
           "success_at_k": 1.0,
-          "cost_usd_mean": 0.722,
           "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/scenario-swarm-rehearsal.yaml",
           "repro_command": "loopbench run --task LB-COMP-1 --spec scenario-swarm-rehearsal.yaml --seeds 0,1,2,3,4 -o results.json",
           "harness": "native",
@@ -118,6 +190,41 @@
           "submission_id": "054b0b09-139d-46f4-b4c4-9b03dc20fe66"
         }
       ]
+    },
+    "LB-REACT-1": {
+      "id": "LB-REACT-1",
+      "name": "ReAct tool loop",
+      "tagline": "Reason-act-observe under repair SimEnv.",
+      "seeds": 5,
+      "entries": []
+    },
+    "LB-GRAPH-1": {
+      "id": "LB-GRAPH-1",
+      "name": "State graph routing",
+      "tagline": "LangGraph-style parallel routing.",
+      "seeds": 5,
+      "entries": []
+    },
+    "LB-CREW-1": {
+      "id": "LB-CREW-1",
+      "name": "Sequential crew",
+      "tagline": "CrewAI-style role pipeline.",
+      "seeds": 5,
+      "entries": []
+    },
+    "LB-REFLEX-1": {
+      "id": "LB-REFLEX-1",
+      "name": "Reflexion memory",
+      "tagline": "Verbal RL with episodic memory.",
+      "seeds": 5,
+      "entries": []
+    },
+    "LB-AUTO-1": {
+      "id": "LB-AUTO-1",
+      "name": "Long-horizon autonomy",
+      "tagline": "Plan-execute under synthesis env.",
+      "seeds": 5,
+      "entries": []
     }
   }
 }

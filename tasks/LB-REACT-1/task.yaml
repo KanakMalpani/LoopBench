@@ -1,0 +1,72 @@
+# LoopBench task spec — ReAct Tool Loop (ALS v2)
+id: LB-REACT-1
+slug: lb/react-tool-loop-1
+name: ReAct Tool Loop
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/code-repair-v1
+pattern_slugs:
+  - tool-loop
+  - observation-feedback-loop
+  - react-loop
+
+goal:
+  g_target: 0.82
+  scalar: "0.65 × tool_success_rate + 0.35 × goal_progress"
+  primary_metric: react_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 25
+  cost_cap_usd: 0.70
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - cr-001
+    - cr-002
+    - cr-003
+
+oracle:
+  type: deterministic
+  checks:
+    - evaluators.tool_pass_rate
+    - evaluators.quality_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - robustness
+  - adaptability
+
+speed_baselines:
+  b_floor_iter_per_s: 0.002
+  b_ceiling_iter_per_s: 0.10
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - unauthorized_egress
+    - tool_injection
+
+notes: >
+  ReAct-style reason→act→observe loops (SmolAgents, OpenAI Agents SDK, generic tool agents).
+  Map with: loopctl agent map --harness react --intent "Use tools until tests pass"
+  Partner path: pip install le-loop-stack && loopctl quick "tool loop until goal" --agent react

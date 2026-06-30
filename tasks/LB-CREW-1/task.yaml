@@ -1,0 +1,71 @@
+# LoopBench task spec — CrewAI Sequential Crew (ALS v2)
+id: LB-CREW-1
+slug: lb/crewai-sequential-1
+name: CrewAI Sequential Crew
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/multi-agent-debate-v1
+pattern_slugs:
+  - sequential-crew-loop
+  - role-delegation-loop
+  - multi-agent-coordination
+
+goal:
+  g_target: 0.86
+  scalar: "0.50 × handoff_quality + 0.50 × deliverable_score"
+  primary_metric: crew_quality
+
+budget:
+  iteration_budget: 5
+  wall_clock_minutes: 50
+  cost_cap_usd: 0.80
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - ma-001
+    - ma-002
+    - ma-003
+
+oracle:
+  type: llm_rubric
+  checks:
+    - evaluators.consensus_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - autonomy
+  - cost
+
+speed_baselines:
+  b_floor_iter_per_s: 0.0005
+  b_ceiling_iter_per_s: 0.02
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - orchestration_deadlock
+    - safety_bypass
+
+notes: >
+  Sequential CrewAI-style role chains (planner → implementer → reviewer).
+  Map with: loopctl agent map --harness crewai --intent "Sequential crew deliver feature"
+  Export: loopforge export --target crewai

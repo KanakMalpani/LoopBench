@@ -1,0 +1,69 @@
+# LoopBench task spec — Bootstrap Optimize (ALS v2)
+id: LB-OPT-1
+slug: lb/bootstrap-optimize-1
+name: Bootstrap Optimize
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/code-repair-v1
+pattern_slugs:
+  - bootstrap-optimize
+  - evaluator-driven-optimization
+  - verification-loop
+
+goal:
+  g_target: 0.81
+  scalar: "0.70 × test_pass_rate + 0.30 × compile_gain"
+  primary_metric: optimize_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 25
+  cost_cap_usd: 0.75
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - cr-001
+    - cr-002
+    - cr-003
+
+oracle:
+  type: deterministic
+  checks:
+    - evaluators.test_pass_rate
+    - evaluators.quality_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - cost
+  - speed
+
+speed_baselines:
+  b_floor_iter_per_s: 0.002
+  b_ceiling_iter_per_s: 0.10
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - test_file_modification
+
+notes: >
+  DSPy-style compile/optimize loops. Suite: suite-repair. Map with loopctl agent map --harness dspy.

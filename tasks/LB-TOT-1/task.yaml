@@ -1,0 +1,68 @@
+# LoopBench task spec — Tree of Thoughts (ALS v2)
+id: LB-TOT-1
+slug: lb/tree-search-1
+name: Tree of Thoughts
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/multi-agent-debate-v1
+pattern_slugs:
+  - tree-search
+  - branching-loop
+  - debate-loop
+
+goal:
+  g_target: 0.87
+  scalar: "0.50 × branch_quality + 0.50 × best_path_score"
+  primary_metric: tot_quality
+
+budget:
+  iteration_budget: 5
+  wall_clock_minutes: 55
+  cost_cap_usd: 0.90
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - ma-001
+    - ma-002
+    - ma-003
+
+oracle:
+  type: llm_rubric
+  checks:
+    - evaluators.consensus_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - scalability
+  - autonomy
+
+speed_baselines:
+  b_floor_iter_per_s: 0.0005
+  b_ceiling_iter_per_s: 0.02
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - orchestration_deadlock
+
+notes: >
+  Tree-of-Thoughts branching search loops. Suite: suite-agent.

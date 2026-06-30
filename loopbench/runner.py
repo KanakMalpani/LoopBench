@@ -8,17 +8,28 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-import loopgym as lg
 import yaml
 
 from loopbench import __version__
 from loopbench.les_compute import LES_WEIGHTS, LesResult, RunMetrics, compute_composite, compute_task_les
+from loopbench.suites import list_suites, load_suite
 from loopbench.tasks import cost_baselines, load_task, speed_baselines
 
 
 def spec_hash(path: Path) -> str:
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     return f"sha256:{digest}"
+
+
+def detect_lss_version(spec_path: Path) -> str:
+    with spec_path.open(encoding="utf-8") as fh:
+        spec = yaml.safe_load(fh)
+    if not isinstance(spec, dict):
+        return "1.0.0"
+    meta = spec.get("metadata") or {}
+    if spec.get("composition") or meta.get("schema_version") == "1.1":
+        return "1.1.0"
+    return "1.0.0"
 
 
 def estimate_cost_usd(spec: dict, iterations: int) -> float:
@@ -45,6 +56,8 @@ def run_task(
 
     with spec_path.open(encoding="utf-8") as fh:
         spec = yaml.safe_load(fh)
+
+    import loopgym as lg
 
     env = lg.make(env_id, spec_path=spec_path, backend=backend)
     runs: list[RunMetrics] = []
@@ -114,20 +127,56 @@ def run_task(
     }
 
 
+def _suite_scores_from_results(task_results: list[dict]) -> dict[str, dict]:
+    by_task = {tr["task_id"]: tr for tr in task_results}
+    scores: dict[str, dict] = {}
+    for suite_id in list_suites():
+        suite = load_suite(suite_id)
+        task_ids = list(suite.get("task_ids") or [])
+        weights = suite.get("weights") or {}
+        les_values: list[float] = []
+        weight_sum = 0.0
+        for tid in task_ids:
+            tr = by_task.get(tid)
+            if tr is None:
+                continue
+            les = float(tr["aggregate"]["les_observed"])
+            w = float(weights.get(tid, 1.0))
+            les_values.append(les * w)
+            weight_sum += w
+        if not les_values or weight_sum <= 0:
+            continue
+        avg = sum(les_values) / weight_sum
+        les_obs, les_disp, rank = compute_composite([avg])
+        scores[suite_id] = {
+            "label": suite.get("label", suite_id),
+            "les_observed": les_obs,
+            "les_display": les_disp,
+            "rank_score": rank,
+            "tasks": [tid for tid in task_ids if tid in by_task],
+        }
+    return scores
+
+
 def build_submission(
     submitter: str,
     spec_path: Path,
     task_results: list[dict],
     *,
     backend: str = "sim",
+    primary_suite: str | None = None,
 ) -> dict:
     les_values = [tr["aggregate"]["les_observed"] for tr in task_results]
     les_obs, les_disp, rank = compute_composite(les_values)
-    return {
+    suite_scores = _suite_scores_from_results(task_results)
+    grand_values = [s["les_observed"] for s in suite_scores.values()]
+    grand_obs, grand_disp, grand_rank = compute_composite(grand_values if grand_values else les_values)
+
+    out: dict = {
         "submission_id": str(uuid4()),
         "submitter": submitter,
         "loopbench_version": __version__,
-        "lss_version": "1.0.0",
+        "lss_version": detect_lss_version(spec_path),
         "les_version": "1.0.0",
         "spec_path": spec_path.as_posix(),
         "spec_hash": spec_hash(spec_path),
@@ -140,3 +189,14 @@ def build_submission(
             "rank_score": rank,
         },
     }
+    if suite_scores:
+        out["suite_scores"] = suite_scores
+        out["grand_composite"] = {
+            "les_observed": grand_obs,
+            "les_display": grand_disp,
+            "rank_score": grand_rank,
+        }
+        out["composite"] = out["grand_composite"]
+    if primary_suite:
+        out["primary_suite"] = primary_suite
+    return out

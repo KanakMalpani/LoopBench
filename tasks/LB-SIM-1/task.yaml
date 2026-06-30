@@ -1,0 +1,68 @@
+# LoopBench task spec — Simulation Loop (ALS v2)
+id: LB-SIM-1
+slug: lb/simulation-loop-1
+name: Simulation Loop
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/composed-swarm-v1
+pattern_slugs:
+  - simulation-loop
+  - world-model-loop
+  - parallel-composition
+
+goal:
+  g_target: 0.83
+  scalar: "0.45 × branch_pass_rate + 0.55 × sim_fidelity"
+  primary_metric: sim_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 55
+  cost_cap_usd: 1.30
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - comp-001
+    - comp-002
+    - comp-003
+
+oracle:
+  type: llm_rubric
+  checks:
+    - evaluators.composite_gate
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: branch_timeout
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - scalability
+  - autonomy
+  - effectiveness
+
+speed_baselines:
+  b_floor_iter_per_s: 0.0003
+  b_ceiling_iter_per_s: 0.015
+
+cost_baselines:
+  b_floor_efficiency: 0.04
+  b_ceiling_efficiency: 1.8
+
+safety:
+  auto_zero_on:
+    - orchestration_deadlock
+
+notes: >
+  World-model / simulation agent loops. Suite: suite-rigor.

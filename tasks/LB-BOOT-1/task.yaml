@@ -1,0 +1,68 @@
+# LoopBench task spec — Few-Shot Bootstrap (ALS v2)
+id: LB-BOOT-1
+slug: lb/few-shot-bootstrap-1
+name: Few-Shot Bootstrap
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/research-synthesis-v1
+pattern_slugs:
+  - few-shot-bootstrap
+  - bootstrap-loop
+  - research-loop
+
+goal:
+  g_target: 0.84
+  scalar: "0.65 × synthesis_quality + 0.35 × example_utilization"
+  primary_metric: bootstrap_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 32
+  cost_cap_usd: 0.68
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - rs-001
+    - rs-002
+    - rs-003
+
+oracle:
+  type: llm_rubric
+  checks:
+    - evaluators.synthesis_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - adaptability
+  - cost
+  - effectiveness
+
+speed_baselines:
+  b_floor_iter_per_s: 0.001
+  b_ceiling_iter_per_s: 0.05
+
+cost_baselines:
+  b_floor_efficiency: 0.04
+  b_ceiling_efficiency: 1.5
+
+safety:
+  auto_zero_on:
+    - unauthorized_egress
+
+notes: >
+  ICL / few-shot bootstrap loops. Suite: suite-knowledge.

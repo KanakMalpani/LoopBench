@@ -1,5 +1,5 @@
 # LoopBench task registry (ALS v2)
-version: "0.1.0"
+version: "0.2.0"
 suite: loopbench-1.0
 tasks:
   - id: LB-CR-1
@@ -10,3 +10,33 @@ tasks:
     path: LB-MA-1/task.yaml
   - id: LB-COMP-1
     path: LB-COMP-1/task.yaml
+  - id: LB-REACT-1
+    path: LB-REACT-1/task.yaml
+  - id: LB-GRAPH-1
+    path: LB-GRAPH-1/task.yaml
+  - id: LB-CREW-1
+    path: LB-CREW-1/task.yaml
+  - id: LB-REFLEX-1
+    path: LB-REFLEX-1/task.yaml
+  - id: LB-AUTO-1
+    path: LB-AUTO-1/task.yaml
+  - id: LB-RAG-1
+    path: LB-RAG-1/task.yaml
+  - id: LB-OPT-1
+    path: LB-OPT-1/task.yaml
+  - id: LB-TOT-1
+    path: LB-TOT-1/task.yaml
+  - id: LB-VOTE-1
+    path: LB-VOTE-1/task.yaml
+  - id: LB-HITL-1
+    path: LB-HITL-1/task.yaml
+  - id: LB-SAFE-1
+    path: LB-SAFE-1/task.yaml
+  - id: LB-MEM-1
+    path: LB-MEM-1/task.yaml
+  - id: LB-BOOT-1
+    path: LB-BOOT-1/task.yaml
+  - id: LB-SIM-1
+    path: LB-SIM-1/task.yaml
+  - id: LB-NEST-1
+    path: LB-NEST-1/task.yaml

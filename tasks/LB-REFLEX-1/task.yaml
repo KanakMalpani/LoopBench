@@ -1,0 +1,70 @@
+# LoopBench task spec — Reflexion Memory Loop (ALS v2)
+id: LB-REFLEX-1
+slug: lb/reflexion-memory-1
+name: Reflexion Memory Loop
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/code-repair-v1
+pattern_slugs:
+  - reflection-loop
+  - episodic-memory-loop
+  - verbal-rl-loop
+
+goal:
+  g_target: 0.83
+  scalar: "0.60 × test_pass_rate + 0.40 × memory_gain"
+  primary_metric: reflex_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 30
+  cost_cap_usd: 0.75
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - cr-001
+    - cr-002
+    - cr-003
+
+oracle:
+  type: deterministic
+  checks:
+    - evaluators.test_pass_rate
+    - evaluators.quality_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - effectiveness
+  - adaptability
+  - robustness
+
+speed_baselines:
+  b_floor_iter_per_s: 0.002
+  b_ceiling_iter_per_s: 0.10
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - test_file_modification
+
+notes: >
+  Reflexion-style loops with session memory and verbal self-critique across trials.
+  Map with: loopctl agent map --harness reflexion --intent "Reflect and retry with memory"

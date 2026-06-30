@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://loop-engineering.org/schema/loopbench-results-0.1.json",
-  "title": "LoopBench Submission Results 0.1",
+  "$id": "https://loop-engineering.org/schema/loopbench-results-0.2.json",
+  "title": "LoopBench Submission Results 0.2",
   "type": "object",
   "required": [
     "submission_id",
@@ -30,7 +30,7 @@
     },
     "lss_version": {
       "type": "string",
-      "const": "1.0.0"
+      "enum": ["1.0.0", "1.1.0"]
     },
     "les_version": {
       "type": "string",
@@ -52,12 +52,25 @@
       "type": "string",
       "enum": ["sim", "live", "replay"]
     },
+    "primary_suite": {
+      "type": "string",
+      "enum": ["suite-repair", "suite-agent", "suite-knowledge", "suite-rigor"]
+    },
+    "partial": {
+      "type": "boolean",
+      "description": "True when not all four suite_scores are present; excluded from generalist rank"
+    },
     "results": {
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/TaskResult" }
     },
-    "composite": { "$ref": "#/$defs/CompositeScore" }
+    "composite": { "$ref": "#/$defs/CompositeScore" },
+    "suite_scores": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/SuiteScore" }
+    },
+    "grand_composite": { "$ref": "#/$defs/CompositeScore" }
   },
   "$defs": {
     "RunRecord": {
@@ -143,7 +156,27 @@
       "properties": {
         "task_id": {
           "type": "string",
-          "enum": ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"]
+          "enum": [
+            "LB-CR-1",
+            "LB-RS-1",
+            "LB-MA-1",
+            "LB-COMP-1",
+            "LB-REACT-1",
+            "LB-GRAPH-1",
+            "LB-CREW-1",
+            "LB-REFLEX-1",
+            "LB-AUTO-1",
+            "LB-RAG-1",
+            "LB-OPT-1",
+            "LB-TOT-1",
+            "LB-VOTE-1",
+            "LB-HITL-1",
+            "LB-SAFE-1",
+            "LB-MEM-1",
+            "LB-BOOT-1",
+            "LB-SIM-1",
+            "LB-NEST-1"
+          ]
         },
         "env_id": { "type": "string", "minLength": 1 },
         "runs": {
@@ -162,6 +195,21 @@
         "les_observed": { "type": "number", "minimum": 0, "maximum": 1 },
         "les_display": { "type": "number", "minimum": 0, "maximum": 100 },
         "rank_score": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "SuiteScore": {
+      "type": "object",
+      "required": ["les_observed", "les_display", "rank_score", "tasks"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string" },
+        "les_observed": { "type": "number", "minimum": 0, "maximum": 1 },
+        "les_display": { "type": "number", "minimum": 0, "maximum": 100 },
+        "rank_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tasks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     }
   }

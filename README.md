@@ -13,14 +13,15 @@ No hand-waved demos — bring an [LSS](https://github.com/KanakMalpani/Loop-Core
 [![CI](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml/badge.svg)](https://github.com/KanakMalpani/LoopBench/actions/workflows/test.yml)
 [![PyPI](https://img.shields.io/pypi/v/loopbench.svg)](https://pypi.org/project/loopbench/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tasks](https://img.shields.io/badge/tasks-4-green.svg)](tasks/)
-[![Suite](https://img.shields.io/badge/suite-ALS_v2-blue.svg)](SUITE-OVERVIEW.md)
+[![Tasks](https://img.shields.io/badge/tasks-19-green.svg)](tasks/)
+[![Suites](https://img.shields.io/badge/suites-4-blue.svg)](SUITE-OVERVIEW.md)
 
 <br>
 
 ```bash
 pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" loopbench loopgym
 loopbench list
+loopbench suite list
 ```
 
 <br>
@@ -42,12 +43,13 @@ You submit a **loop specification** (LSS YAML). LoopBench:
 1. Runs it through [LoopGym](https://github.com/KanakMalpani/LoopGym) on fixed task instances
 2. Computes **Success@k** and **LES_obs** across eight categories
 3. Validates your `results.json` against a published schema
-4. Ranks you on the public leaderboard
+4. Ranks you on the public leaderboard — **generalist** (grand composite) is the primary rank
 
 ```bash
-loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+loopbench run --suite suite-repair --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json
 loopbench rank leaderboard/entries.json
+loopbench rank leaderboard/entries.json --suite suite-repair
 ```
 
 ---
@@ -81,27 +83,35 @@ New to the stack? Start with the [LoopNet end-to-end tutorial](https://github.co
 
 ---
 
-## Tasks (v0.1)
+## Suites and tasks (v0.2)
 
-| ID | Name | What it exposes |
-|----|------|-----------------|
-| **`LB-CR-1`** | Code repair | Can your loop fix broken code under verify pressure? |
-| **`LB-RS-1`** | Research synthesis | Quality vs. cost on structured briefs |
-| **`LB-MA-1`** | Multi-agent debate | Autonomy + coordination under evaluator scrutiny |
-| **`LB-COMP-1`** | Composed swarm rehearsal | Parallel branches + merge (MiroFish-style LSS) |
+**19 micro-tasks** feed **4 comparison suites**. Primary leaderboard rank = **generalist** (mean of suite scores).
 
-Five seeds per task. Details in [`tasks/`](tasks/).
+| Suite ID | Label | Micro-tasks |
+|----------|-------|-------------|
+| `suite-repair` | Repair & Verify | LB-CR-1, LB-REACT-1, LB-REFLEX-1, LB-OPT-1, LB-SAFE-1 |
+| `suite-agent` | Multi-Agent | LB-MA-1, LB-CREW-1, LB-GRAPH-1, LB-TOT-1, LB-VOTE-1 |
+| `suite-knowledge` | Research & RAG | LB-RS-1, LB-RAG-1, LB-BOOT-1, LB-AUTO-1 |
+| `suite-rigor` | Composition & Safety | LB-COMP-1, LB-NEST-1, LB-SIM-1, LB-HITL-1, LB-MEM-1 |
+
+```bash
+loopbench suite list
+loopbench run --suite suite-repair --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+```
+
+Full catalog in [`tasks/index.yaml`](tasks/index.yaml) and [`SUITE-OVERVIEW.md`](SUITE-OVERVIEW.md).
 
 ## Live leaderboard
 
 <!-- LEADERBOARD:START -->
 <!-- auto-generated; do not edit -->
-**Live board** (updated 2026-06-24) — [full rankings](leaderboard/LIVE.md)
+**Live board** (updated 2026-06-25) — [full rankings](leaderboard/LIVE.md)
 
-- **LB-CR-1:** Loop Engineering maintainer — LES **86.7**
-- **LB-RS-1:** Loop Engineering maintainer (RS-1) — LES **81.9**
-- **LB-MA-1:** Loop Engineering maintainer (MA-1) — LES **86.5**
-- **LB-COMP-1:** Loop Engineering maintainer (COMP-1) — LES **80.3**
+**Generalist:**
+- Loop Engineering maintainer — LES **86.7**
+- Loop Engineering maintainer (MA-1) — LES **86.5**
+- Team Thorough — LES **86.4**
 
 [Submit your loop →](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md)
 <!-- LEADERBOARD:END -->
@@ -119,7 +129,7 @@ Post your **60-minute reproduction report** on the [reproduction challenge](http
 Also: [BEAT_LB-RS-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-RS-1.md) (81.9) · [BEAT_LB-MA-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-MA-1.md) (86.5) · [BEAT_LB-COMP-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-COMP-1.md) (80.3)
 
 ```bash
-pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" "loopbench>=0.1.1" "loopgym>=0.1.2"
+pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" "loopbench>=0.2.0" "loopgym>=0.1.2"
 # see BEAT_LB-CR-1.md for full clone + run + submit
 ```
 
@@ -130,20 +140,21 @@ pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" "loopbench>=0.1.1" "loopgy
 ```bash
 pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" loopbench loopgym
 
-loopbench list
+loopbench suite list
 
 loopbench run \
-  --task LB-CR-1 \
+  --suite suite-repair \
   --spec submissions/examples/spec-fast-loop.yaml \
   --seeds 0,1,2,3,4 \
   -o results.json
 
 loopbench validate results.json
+loopbench rank results.json
 ```
 
 **Submit to the leaderboard:** open a PR adding your entry to [`leaderboard/entries.json`](leaderboard/entries.json).
 
-v0.1 accepts **SimEnv** submissions only (fully reproducible, no API keys). LiveEnv tier: v0.2.
+v0.2 accepts **SimEnv** submissions (fully reproducible, no API keys). LiveEnv tier is optional.
 
 ---
 
@@ -153,6 +164,7 @@ v0.1 accepts **SimEnv** submissions only (fully reproducible, no API keys). Live
 |--------|---------|
 | **Success@k** | Fraction of instances reaching goal threshold |
 | **LES_obs** | Observed composite ∈ `[0, 1]` — [eight categories](metrics/les-compute.md) |
+| **Grand composite** | Mean of 4 suite scores — **generalist rank** |
 | **Cost** | Estimated USD from LSS cost limits |
 | **Robustness** | Quality retention across seeds |
 
@@ -184,6 +196,6 @@ Display scale 0–100 is optional (`les × 100`).
 
 <div align="center">
 
-<sub>MIT · v0.1 · <a href="CONTRIBUTING.md">Contributing</a> · <a href="SECURITY.md">Security</a> · <a href="STATUS.md">Status</a></sub>
+<sub>MIT · v0.2 · <a href="CONTRIBUTING.md">Contributing</a> · <a href="SECURITY.md">Security</a> · <a href="STATUS.md">Status</a></sub>
 
 </div>

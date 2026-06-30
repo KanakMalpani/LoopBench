@@ -1,6 +1,6 @@
 # Observed LES on LoopBench (LES-obs)
 
-**Version:** 0.1.0  
+**Version:** 0.2.0  
 **Normative LES:** [`01-loop-engineering-core/specs/les-1.0.md`](../../01-loop-engineering-core/specs/les-1.0.md) (`les@1.0.0`)
 
 LoopBench reports **observed** LES (`LES_obs`) from executable runs via LoopGym SimEnv (v0.1) or LiveEnv (optional). Design-time LES from LSS structure alone is **not** a benchmark score.
@@ -110,13 +110,23 @@ les_observed_task = weighted mean of per-run LES (equal weight v0.1)
 cost_usd_mean = mean(cost_usd)
 ```
 
-### Suite composite
+### Per suite
+
+For suite `S` with micro-tasks `T₁…Tₙ`:
 
 ```
-les_observed = (LES_LB-CR-1 + LES_LB-RS-1 + LES_LB-MA-1) / 3
+les_observed_suite = weighted mean of per-task LES (equal weight v0.2)
 ```
 
-Report per-task scores individually; composite is supplementary.
+### Grand composite (generalist rank)
+
+Primary leaderboard rank uses the **grand composite** — mean of all four suite scores:
+
+```
+grand_composite = (LES_suite-repair + LES_suite-agent + LES_suite-knowledge + LES_suite-rigor) / 4
+```
+
+Report per-task and per-suite scores individually; grand composite is the primary rank when all four suites are present in a submission (`suite_scores` + `grand_composite` in schema v0.2).
 
 ---
 
@@ -126,11 +136,12 @@ Report per-task scores individually; composite is supplementary.
 
 ---
 
-## Submission requirements (v0.1)
+## Submission requirements (v0.2)
 
 - ≥ 1 run per primary instance × seed set (default 5 seeds)
 - LSS spec path + SHA-256 hash in results JSON
 - `loopbench_version`, `lss@1.0.0`, `les@1.0.0` pins
+- `suite_scores` and `grand_composite` when submitting for generalist rank
 - No API keys in submitted artifacts
 
 ---

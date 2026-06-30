@@ -1,0 +1,70 @@
+# LoopBench task spec — Nested Composition (ALS v2)
+id: LB-NEST-1
+slug: lb/nested-composition-1
+name: Nested Composition
+version: 1.0.0
+status: stable
+
+loopgym_env: loopbench/code-repair-v1
+pattern_slugs:
+  - nested-composition-loop
+  - nested-loop
+  - verification-loop
+
+goal:
+  g_target: 0.81
+  scalar: "0.60 × inner_pass_rate + 0.40 × outer_integration"
+  primary_metric: nest_quality
+
+budget:
+  iteration_budget: 6
+  wall_clock_minutes: 30
+  cost_cap_usd: 0.78
+
+evaluation:
+  seeds: [0, 1, 2, 3, 4]
+  min_runs_per_instance: 1
+  success_at_k: 1
+  primary_instances:
+    - cr-001
+    - cr-002
+    - cr-003
+
+oracle:
+  type: deterministic
+  checks:
+    - evaluators.test_pass_rate
+    - evaluators.quality_rubric
+
+perturbations:
+  - id: P1
+    name: context_truncation
+  - id: P2
+    name: corrupted_tool_result
+  - id: P3
+    name: api_latency
+  - id: P4
+    name: model_downgrade
+  - id: P5
+    name: budget_minus_one
+
+les_stress:
+  - scalability
+  - effectiveness
+  - robustness
+
+speed_baselines:
+  b_floor_iter_per_s: 0.002
+  b_ceiling_iter_per_s: 0.10
+
+cost_baselines:
+  b_floor_efficiency: 0.05
+  b_ceiling_efficiency: 2.0
+
+safety:
+  auto_zero_on:
+    - test_file_modification
+    - orchestration_deadlock
+
+notes: >
+  Nested code-debug-repair composition (outer coding-agent, inner autonomous-debugger). Suite: suite-rigor.
