@@ -63,4 +63,10 @@ def test_list_tasks() -> None:
     from loopbench.tasks import list_tasks
 
     tasks = list_tasks()
-    assert tasks == ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"]
+    # Original micro-tasks remain the canonical lead set.
+    assert tasks[:4] == ["LB-CR-1", "LB-RS-1", "LB-MA-1", "LB-COMP-1"]
+    # SimEnv-backed tasks added in v0.2 must stay registered.
+    for task_id in ("LB-RAG-1", "LB-HITL-1", "LB-SAFE-1"):
+        assert task_id in tasks
+    # No duplicate task IDs.
+    assert len(tasks) == len(set(tasks))
