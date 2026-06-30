@@ -52,11 +52,19 @@ loopbench rank leaderboard/entries.json --suite suite-repair
 
 ## Suite coverage
 
-One LSS spec → four suite scores → one **generalist** rank on the public leaderboard.
+One LSS spec → four suite scores → one **generalist** rank on the public leaderboard. **No hand-waved demos. No private benchmarks. Just numbers anyone can reproduce.**
 
 <div align="center">
   <img src="assets/suite-coverage.png" alt="LoopBench suite and task coverage" width="92%" />
 </div>
+
+| What LoopBench gives you | Why it beats "we tried it internally" |
+| :--- | :--- |
+| **Fixed tasks & seeds** | Same inputs for every submission — apples to apples |
+| **LES_obs across 8 dimensions** | Speed, cost, robustness, safety — not just pass/fail |
+| **Public leaderboard** | Reputation you can link in a PR |
+| **Schema-valid results.json** | No moving goalposts after the fact |
+| **Generalist rank** | One number that rewards loops that work *everywhere* |
 
 | Suite | Tasks | Stress area |
 | :--- | ---: | :--- |
