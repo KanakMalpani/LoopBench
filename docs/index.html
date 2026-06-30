@@ -44,11 +44,11 @@
         <img src="assets/logos/loopbench-lb.png" alt="" width="56" height="56" class="brand-logo brand-logo-lg" />
         <div>
           <h1>LoopBench</h1>
-          <p class="hero-byline">Loop Engineering · 19 micro-tasks · 4 suites</p>
+          <p class="hero-byline">Loop Engineering</p>
         </div>
       </div>
       <dl class="hero-stats" id="hero-stats">
-        <div><dt>tasks</dt><dd id="stat-tasks">19</dd></div>
+        <div><dt>tasks</dt><dd id="stat-tasks">4</dd></div>
         <div><dt>submissions</dt><dd id="stat-subs">—</dd></div>
         <div><dt>seeds</dt><dd>5</dd></div>
         <div><dt>updated</dt><dd id="stat-updated">—</dd></div>
@@ -59,15 +59,11 @@
       <section class="panel leaderboard-section" aria-labelledby="lb-title">
         <div class="panel-header">
           <h2 id="lb-title">Leaderboard</h2>
-          <p class="panel-desc" id="task-tagline">Generalist rank — mean of four suite scores.</p>
+          <p class="panel-desc" id="task-tagline">Select a task to compare loops.</p>
         </div>
 
         <div class="controls-block">
           <div class="control-row">
-            <span class="control-label">View</span>
-            <div class="task-tabs suite-tabs" role="tablist" id="suite-tabs" aria-label="Leaderboard view"></div>
-          </div>
-          <div class="control-row" id="task-tabs-row">
             <span class="control-label">Task</span>
             <div class="task-tabs" role="tablist" id="task-tabs" aria-label="Benchmark task"></div>
           </div>
@@ -100,7 +96,6 @@
                 <th data-sort="cost_usd_mean" title="Cost">Cost ↕</th>
                 <th title="Harness">Harness</th>
                 <th>Spec</th>
-                <th title="Reproduction command">Repro</th>
               </tr>
             </thead>
             <tbody id="rank-body"></tbody>
@@ -127,7 +122,7 @@
           </article>
           <article class="feature">
             <h3>Reproducible</h3>
-            <p>Five seeds, SimEnv v0.2, auditable specs.</p>
+            <p>Five seeds, no API keys on v0.1, auditable specs.</p>
           </article>
           <article class="feature">
             <h3>Community scoreboard</h3>
@@ -138,8 +133,8 @@
 
       <section class="panel panel-compact cta-section" id="run">
         <h2 class="section-title-sm">Run your first score</h2>
-        <pre class="code-block"><code>pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" loopbench loopgym
-loopbench run --suite suite-repair --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
+        <pre class="code-block"><code>pip install "le-loop-stack>=0.1.0" loopbench loopgym
+loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.json
 loopbench validate results.json</code></pre>
         <p><a href="https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-CR-1.md">Beat LB-CR-1 guide →</a></p>
       </section>

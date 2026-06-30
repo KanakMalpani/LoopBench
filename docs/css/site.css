@@ -393,39 +393,6 @@ body {
 }
 .spec-link:hover { text-decoration: underline; }
 
-.repro-btn {
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text-muted);
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  padding: 0.2rem 0.45rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-
-.repro-btn:hover {
-  border-color: var(--border-strong);
-  color: var(--text);
-}
-
-.task-cards-hint {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  padding: 0.5rem 0;
-}
-
-#task-tabs-row { display: none; }
-
-.suite-tabs .task-tab .tab-id { font-family: var(--font); font-size: 0.8125rem; }
-
-.metric-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
 /* —— Glossary & features —— */
 .glossary-compact {
   display: grid;
