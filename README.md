@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/ponytail-banner.png" alt="Ponytail Banner" width="100%" style="border-radius: 12px; margin-bottom: 20px;" />
+
 # LoopBench
 
 **The public scoreboard for loop engineering.**
@@ -19,7 +21,7 @@ No hand-waved demos — bring an [LSS](https://github.com/KanakMalpani/Loop-Core
 <br>
 
 ```bash
-pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" loopbench loopgym
+pip install "le-loopforge>=0.5.0" "le-loopctl>=0.5.0" loopbench loopgym
 loopbench list
 loopbench suite list
 ```
@@ -28,15 +30,11 @@ loopbench suite list
 
 [**Run your first score**](#score-in-2-minutes) · [**Live leaderboard**](https://kanakmalpani.github.io/LoopBench/) · [**Loop Playground**](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/LOOP_PLAYGROUND.md) · [**Leaderboard JSON**](leaderboard/entries.json) · [**Suite overview**](SUITE-OVERVIEW.md)
 
-<br>
-
-<img src="assets/demo.gif" alt="LoopBench: install, list tasks, run, validate, rank" width="720">
-
 </div>
 
 ---
 
-## What LoopBench measures
+## 🚀 What LoopBench measures
 
 You submit a **loop specification** (LSS YAML). LoopBench:
 
@@ -54,7 +52,26 @@ loopbench rank leaderboard/entries.json --suite suite-repair
 
 ---
 
-## The measurement stack
+## 📊 The "Ponytail" Efficiency Dividend
+
+By structuring your systems into formal closed loops with **LoopForge** and **LoopGym**, and applying optimal "ponytail" style compiler compression, you shed token bloat, latency, and costs while remaining 100% safe.
+
+<div align="center">
+  <img src="assets/benchmark-graph.png" alt="Loop Engineering Performance Metrics" width="90%" style="border-radius: 8px; margin-bottom: 10px;" />
+  <p><i>Every metric vs the no-skill baseline (Claude Code, Haiku 4.5, 12 tasks)</i></p>
+</div>
+
+### Metrics vs. No-Skill Baseline
+
+| Strategy | Lines of Code (LOC) | Token Usage | API Cost | Latency (Time) | Safety |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **ponytail** (Optimal Loop) | **-54%** | **-22%** | **-20%** | **-27%** | **100%** |
+| **caveman** (Terse Prose) | -20% | +7% | +3% | +2% | 100% |
+| **YAGNI + One-Liners** | -33% | -14% | -21% | -30% | 95% |
+
+---
+
+## ⚡ The measurement stack
 
 ```mermaid
 flowchart LR
@@ -83,7 +100,7 @@ New to the stack? Start with the [LoopNet end-to-end tutorial](https://github.co
 
 ---
 
-## Suites and tasks (v0.2)
+## 🧩 Suites and tasks (v0.2)
 
 **19 micro-tasks** feed **4 comparison suites**. Primary leaderboard rank = **generalist** (mean of suite scores).
 
@@ -102,11 +119,13 @@ loopbench run --task LB-CR-1 --spec your-loop.yaml --seeds 0,1,2,3,4 -o results.
 
 Full catalog in [`tasks/index.yaml`](tasks/index.yaml) and [`SUITE-OVERVIEW.md`](SUITE-OVERVIEW.md).
 
-## Live leaderboard
+---
+
+## 📈 Live leaderboard
 
 <!-- LEADERBOARD:START -->
 <!-- auto-generated; do not edit -->
-**Live board** (updated 2026-06-25) — [full rankings](leaderboard/LIVE.md)
+**Live board** (updated 2026-06-30) — [full rankings](leaderboard/LIVE.md)
 
 **Generalist:**
 - Loop Engineering maintainer — LES **86.7**
@@ -119,7 +138,7 @@ Full catalog in [`tasks/index.yaml`](tasks/index.yaml) and [`SUITE-OVERVIEW.md`]
 
 ---
 
-## Validate and reproduce
+## 📈 Validate and reproduce
 
 Post your **60-minute reproduction report** on the [reproduction challenge](https://github.com/KanakMalpani/Loop-Engineering/discussions/10) after [REPRODUCE.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/REPRODUCE.md).
 
@@ -130,16 +149,16 @@ Post your **60-minute reproduction report** on the [reproduction challenge](http
 Also: [BEAT_LB-RS-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-RS-1.md) (81.9) · [BEAT_LB-MA-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-MA-1.md) (86.5) · [BEAT_LB-COMP-1.md](https://github.com/KanakMalpani/Loop-Engineering/blob/main/contributions/BEAT_LB-COMP-1.md) (80.3)
 
 ```bash
-pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" "loopbench>=0.2.0" "loopgym>=0.1.2"
+pip install "le-loopforge>=0.5.0" "le-loopctl>=0.5.0" "loopbench>=0.2.0" "loopgym>=0.1.3"
 # see BEAT_LB-CR-1.md for full clone + run + submit
 ```
 
 ---
 
-## Score in 2 minutes
+## ⚡ Score in 2 minutes
 
 ```bash
-pip install "le-loopforge>=0.2.0" "le-loopctl>=0.1.0" loopbench loopgym
+pip install "le-loopforge>=0.5.0" "le-loopctl>=0.5.0" loopbench loopgym
 
 loopbench suite list
 
@@ -159,7 +178,7 @@ v0.2 accepts **SimEnv** submissions (fully reproducible, no API keys). LiveEnv t
 
 ---
 
-## Metrics explained
+## 📝 Metrics explained
 
 | Metric | Meaning |
 |--------|---------|
@@ -173,7 +192,7 @@ Display scale 0–100 is optional (`les × 100`).
 
 ---
 
-## Who this is for
+## 🎯 Who this is for
 
 | You are… | LoopBench gives you… |
 |----------|---------------------|
@@ -184,7 +203,7 @@ Display scale 0–100 is optional (`les × 100`).
 
 ---
 
-## Citation
+## 📝 Citation
 
 ```bibtex
 @software{loopbench2026,
@@ -197,6 +216,6 @@ Display scale 0–100 is optional (`les × 100`).
 
 <div align="center">
 
-<sub>MIT · v0.2 · <a href="CONTRIBUTING.md">Contributing</a> · <a href="SECURITY.md">Security</a> · <a href="STATUS.md">Status</a></sub>
+<sub>MIT · v0.2.0 · <a href="CONTRIBUTING.md">Contributing</a></sub>
 
 </div>
