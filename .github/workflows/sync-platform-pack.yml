@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-platform-pack
@@ -37,13 +38,27 @@ jobs:
           echo "$(git -C /tmp/le rev-parse HEAD)" > .platform-pack-source
 
       - name: Commit if changed
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add scripts/ docs/ leaderboard/README.md leaderboard/ROW_SCHEMA.md .platform-pack-source
           if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Platform pack already up to date"
           else
+            if git diff --staged --name-only | grep -q '^docs/'; then
+              echo "docs_changed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "docs_changed=false" >> "$GITHUB_OUTPUT"
+            fi
+            echo "changed=true" >> "$GITHUB_OUTPUT"
             git commit -m "chore: sync platform pack from Loop-Engineering"
             git push
           fi
+
+      - name: Redeploy GitHub Pages when site docs changed
+        if: steps.commit.outputs.docs_changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "${{ github.repository }}"

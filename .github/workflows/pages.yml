@@ -10,7 +10,8 @@ on:
       - scripts/render_leaderboard.py
       - scripts/leaderboard_common.py
   workflow_run:
-    workflows: ["Leaderboard render", "Sync platform pack"]
+    # GITHUB_TOKEN pushes from Leaderboard render do not fire push workflows.
+    workflows: ["Leaderboard render"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
@@ -22,7 +23,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -59,5 +60,37 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Wait for prior Pages deployment to finish
+        if: github.event_name == 'workflow_run'
+        run: sleep 45
+
       - id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry Pages deploy (attempt 2)
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 45
+
+      - id: deployment2
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry Pages deploy (attempt 3)
+        if: steps.deployment.outcome == 'failure' && steps.deployment2.outcome == 'failure'
+        run: sleep 45
+
+      - id: deployment3
+        if: steps.deployment.outcome == 'failure' && steps.deployment2.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Fail if Pages deploy exhausted retries
+        if: >-
+          steps.deployment.outcome == 'failure' &&
+          (steps.deployment2.outcome == 'failure' || steps.deployment2.outcome == 'skipped') &&
+          (steps.deployment3.outcome == 'failure' || steps.deployment3.outcome == 'skipped')
+        run: |
+          echo "GitHub Pages deploy failed after 3 attempts (transient platform error)."
+          exit 1
