@@ -129,7 +129,7 @@ Full catalog in [`tasks/index.yaml`](tasks/index.yaml) and [`SUITE-OVERVIEW.md`]
 
 <!-- LEADERBOARD:START -->
 <!-- auto-generated; do not edit -->
-**Live board** (updated 2026-06-30) — [full rankings](leaderboard/LIVE.md)
+**Live board** (updated 2026-06-25) — [full rankings](leaderboard/LIVE.md)
 
 **Generalist:**
 - Loop Engineering maintainer — LES **86.7**
