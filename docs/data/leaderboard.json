@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
   "updated": "2026-06-25",
-  "entry_count": 6,
+  "entry_count": 10,
   "generalist": [
     {
       "rank": 1,
@@ -32,6 +32,15 @@
     },
     {
       "rank": 4,
+      "submitter": "Loop Engineering maintainer (suite-repair)",
+      "les_observed": 0.86,
+      "les_display": 86.0,
+      "primary_suite": "suite-repair",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 5,
       "submitter": "Loop Engineering maintainer (RS-1)",
       "les_observed": 0.8191,
       "les_display": 81.9,
@@ -40,7 +49,16 @@
       "is_external": false
     },
     {
-      "rank": 5,
+      "rank": 6,
+      "submitter": "Loop Engineering maintainer (suite-agent)",
+      "les_observed": 0.81,
+      "les_display": 81.0,
+      "primary_suite": "suite-agent",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 7,
       "submitter": "Team Fast",
       "les_observed": 0.8058,
       "les_display": 80.6,
@@ -49,12 +67,30 @@
       "is_external": false
     },
     {
-      "rank": 6,
+      "rank": 8,
       "submitter": "Loop Engineering maintainer (COMP-1)",
       "les_observed": 0.8028,
       "les_display": 80.3,
       "primary_suite": null,
       "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/scenario-swarm-rehearsal.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 9,
+      "submitter": "Loop Engineering maintainer (suite-rigor)",
+      "les_observed": 0.8,
+      "les_display": 80.0,
+      "primary_suite": "suite-rigor",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+      "is_external": false
+    },
+    {
+      "rank": 10,
+      "submitter": "Loop Engineering maintainer (suite-knowledge)",
+      "les_observed": 0.79,
+      "les_display": 79.0,
+      "primary_suite": "suite-knowledge",
+      "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
       "is_external": false
     }
   ],
@@ -62,22 +98,62 @@
     "suite-repair": {
       "id": "suite-repair",
       "label": "Repair & Verify",
-      "entries": []
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (suite-repair)",
+          "les_observed": 0.86,
+          "les_display": 86.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
+          "harness": "native",
+          "is_external": false
+        }
+      ]
     },
     "suite-agent": {
       "id": "suite-agent",
       "label": "Multi-Agent",
-      "entries": []
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (suite-agent)",
+          "les_observed": 0.81,
+          "les_display": 81.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+          "harness": "native",
+          "is_external": false
+        }
+      ]
     },
     "suite-knowledge": {
       "id": "suite-knowledge",
       "label": "Research & RAG",
-      "entries": []
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (suite-knowledge)",
+          "les_observed": 0.79,
+          "les_display": 79.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
+          "harness": "native",
+          "is_external": false
+        }
+      ]
     },
     "suite-rigor": {
       "id": "suite-rigor",
       "label": "Composition & Safety",
-      "entries": []
+      "entries": [
+        {
+          "rank": 1,
+          "submitter": "Loop Engineering maintainer (suite-rigor)",
+          "les_observed": 0.8,
+          "les_display": 80.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+          "harness": "native",
+          "is_external": false
+        }
+      ]
     }
   },
   "tasks": {
@@ -115,6 +191,19 @@
         },
         {
           "rank": 3,
+          "submitter": "Loop Engineering maintainer (suite-repair)",
+          "loop_name": "autonomous-debugger",
+          "les_observed": 0.86,
+          "les_display": 86.0,
+          "success_at_k": 1.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/autonomous-debugger.yaml",
+          "repro_command": "loopbench run --suite suite-repair --spec autonomous-debugger.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": ""
+        },
+        {
+          "rank": 4,
           "submitter": "Team Fast",
           "loop_name": "spec-fast-loop",
           "les_observed": 0.8058,
@@ -146,6 +235,19 @@
           "harness": "native",
           "is_external": false,
           "submission_id": "23817c7a-416c-4d97-917b-bd4f9dd32b58"
+        },
+        {
+          "rank": 2,
+          "submitter": "Loop Engineering maintainer (suite-knowledge)",
+          "loop_name": "research-agent",
+          "les_observed": 0.79,
+          "les_display": 79.0,
+          "success_at_k": 0.85,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/research-agent.yaml",
+          "repro_command": "loopbench run --suite suite-knowledge --spec research-agent.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": ""
         }
       ]
     },
@@ -167,6 +269,19 @@
           "harness": "native",
           "is_external": false,
           "submission_id": "00dda7ed-e239-492e-b223-1d67079ee640"
+        },
+        {
+          "rank": 2,
+          "submitter": "Loop Engineering maintainer (suite-agent)",
+          "loop_name": "parallel-swarm",
+          "les_observed": 0.81,
+          "les_display": 81.0,
+          "success_at_k": 0.9,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+          "repro_command": "loopbench run --suite suite-agent --spec parallel-swarm.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": ""
         }
       ]
     },
@@ -188,6 +303,19 @@
           "harness": "native",
           "is_external": false,
           "submission_id": "054b0b09-139d-46f4-b4c4-9b03dc20fe66"
+        },
+        {
+          "rank": 2,
+          "submitter": "Loop Engineering maintainer (suite-rigor)",
+          "loop_name": "parallel-swarm",
+          "les_observed": 0.8,
+          "les_display": 80.0,
+          "success_at_k": 1.0,
+          "spec_path": "https://github.com/KanakMalpani/Loop-Engineering/blob/main/loop-library/compositions/parallel-swarm.yaml",
+          "repro_command": "loopbench run --suite suite-rigor --spec parallel-swarm.yaml --seeds 0,1,2,3,4 -o results.json",
+          "harness": "native",
+          "is_external": false,
+          "submission_id": ""
         }
       ]
     },
